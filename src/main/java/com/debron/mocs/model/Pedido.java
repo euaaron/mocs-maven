@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
-public class Pedidio {
+public class Pedido {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
