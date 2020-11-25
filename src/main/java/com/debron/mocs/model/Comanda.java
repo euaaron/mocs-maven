@@ -5,6 +5,7 @@
  */
 package com.debron.mocs.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
  *
  * @author Aaron e Debora
  */
+@Entity
 public class Comanda {
   
   @Id

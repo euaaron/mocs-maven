@@ -5,13 +5,10 @@
  */
 package com.debron.mocs.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -27,11 +24,9 @@ public class Funcionario {
   private Integer id;
   private Integer nivelPermissao;
   private Boolean statusConta;
-  @OneToOne(targetEntity = Estabelecimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="estabelecimentoId")
+  @OneToOne
   private Estabelecimento estabelecimento;
-  @OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="usuarioId")
+  @OneToOne
   private Usuario usuario;
   private String createdAt;
   private String updatedAt;

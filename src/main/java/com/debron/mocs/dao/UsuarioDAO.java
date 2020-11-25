@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Usuario;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -73,11 +72,24 @@ public class UsuarioDAO {
         return entity;
     }
   
+  public Usuario findByCPF(String cpf) {
+        EntityManager em = new ConexaoFactory().getConexao();
+        Usuario entity = null;
+        try {
+            entity = em.find(Usuario.class, cpf);
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            em.close();
+        }
+        return entity;
+    }
+  
   public List<Usuario> findAll() {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Usuario> entities = null;
         try {
-            entities = em.createQuery("from Usuario ${usuario} u").getResultList();
+            entities = em.createQuery("from Usuario u").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {

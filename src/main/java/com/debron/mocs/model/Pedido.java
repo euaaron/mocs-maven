@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -27,11 +26,9 @@ public class Pedido {
   private int quantidade;
   
   @OneToOne
-  @JoinColumn(name="pratoId")
   private Prato prato;
   
   @ManyToOne
-  @JoinColumn(name="comandaId")
   private Comanda comanda;
   
   private String createdAt;

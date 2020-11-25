@@ -5,25 +5,20 @@
  */
 package com.debron.mocs.model;
 
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
  * @author Aaron e Debora
  */
-
 @Entity
 public class Usuario {
-  
+
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String nome;
   private String cpf;
@@ -31,9 +26,7 @@ public class Usuario {
   private String email;
   private String telefone;
   private String senha;
-  @OneToMany(mappedBy = "usuario", targetEntity = Estabelecimento.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Estabelecimento> favoritos;
-  
+
   private String createdAt;
   private String updatedAt;
 
@@ -93,14 +86,6 @@ public class Usuario {
     this.senha = senha;
   }
 
-  public List<Estabelecimento> getFavoritos() {
-    return favoritos;
-  }
-
-  public void setFavoritos(List<Estabelecimento> favoritos) {
-    this.favoritos = favoritos;
-  }
-
   public String getCreatedAt() {
     return createdAt;
   }
@@ -116,5 +101,5 @@ public class Usuario {
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
   }
-  
+
 }
