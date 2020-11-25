@@ -5,7 +5,6 @@
 package com.debron.mocs.exception;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,7 +48,6 @@ public class TratamentoExcecao extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("error.jsp");
             view.forward(request, response);
         }
-        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

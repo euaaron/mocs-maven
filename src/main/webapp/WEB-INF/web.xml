@@ -4,9 +4,33 @@
         <servlet-name>TratamentoExcecao</servlet-name>
         <servlet-class>com.debron.mocs.exception.TratamentoExcecao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManterUsuarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ManterUsuarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisarUsuarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.PesquisarUsuarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterEstabelecimentoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ManterEstabelecimentoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TratamentoExcecao</servlet-name>
         <url-pattern>/TratamentoExcecao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterUsuarioController</servlet-name>
+        <url-pattern>/ManterUsuarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisarUsuarioController</servlet-name>
+        <url-pattern>/PesquisarUsuarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterEstabelecimentoController</servlet-name>
+        <url-pattern>/ManterEstabelecimentoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

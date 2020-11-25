@@ -5,38 +5,36 @@
  */
 package com.debron.mocs.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
  *
  * @author Aaron e Debora
  */
+@Entity
 public class Estabelecimento {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private String cnpj;
   private String telefone;
   private String nomeFantasia;
   private String inscEstadual;
-  @OneToOne(targetEntity = Endereco.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="enderecoId")
+  @OneToOne
   private Endereco endereco;
   
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

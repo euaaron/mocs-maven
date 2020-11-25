@@ -5,6 +5,7 @@
  */
 package com.debron.mocs.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +14,12 @@ import javax.persistence.Id;
  *
  * @author Aaron e Debora
  */
+@Entity
 public class Endereco {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private String cep;
   private String bairro;
   private String uf;
@@ -29,11 +31,11 @@ public class Endereco {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

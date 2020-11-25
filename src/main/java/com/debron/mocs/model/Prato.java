@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -21,12 +20,11 @@ import javax.persistence.ManyToOne;
 public class Prato {
   
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private String id;
   private String nome;
   private String descricao;
   @ManyToOne
-  @JoinColumn(name="estabelecimentoId")
   private Estabelecimento estabelecimento;
   private Float preco;
   private String imagemUrl;
@@ -35,11 +33,11 @@ public class Prato {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

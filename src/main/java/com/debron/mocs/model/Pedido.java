@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -20,28 +19,26 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
-public class Pedidio {
+public class Pedido {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private int quantidade;
   
   @OneToOne
-  @JoinColumn(name="pratoId")
   private Prato prato;
   
   @ManyToOne
-  @JoinColumn(name="comandaId")
   private Comanda comanda;
   
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
