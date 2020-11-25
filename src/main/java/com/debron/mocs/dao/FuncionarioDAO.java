@@ -42,7 +42,7 @@ public class FuncionarioDAO {
         return entity;
   }
   
-  public Funcionario remove(Integer id) {
+  public Funcionario remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Funcionario entity = null;
         try {
@@ -59,7 +59,7 @@ public class FuncionarioDAO {
         return entity;
     }
   
-  public Funcionario findById(Integer id) {
+  public Funcionario findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Funcionario entity = null;
         try {

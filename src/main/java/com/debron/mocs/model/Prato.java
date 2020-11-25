@@ -20,8 +20,8 @@ import javax.persistence.ManyToOne;
 public class Prato {
   
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private String id;
   private String nome;
   private String descricao;
   @ManyToOne
@@ -33,11 +33,11 @@ public class Prato {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

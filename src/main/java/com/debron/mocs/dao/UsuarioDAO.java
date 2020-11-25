@@ -42,7 +42,7 @@ public class UsuarioDAO {
         return entity;
   }
   
-  public Usuario remove(Integer id) {
+  public Usuario remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Usuario entity = null;
         try {
@@ -59,7 +59,7 @@ public class UsuarioDAO {
         return entity;
     }
   
-  public Usuario findById(Integer id) {
+  public Usuario findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Usuario entity = null;
         try {

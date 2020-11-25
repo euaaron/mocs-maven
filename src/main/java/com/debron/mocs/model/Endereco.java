@@ -18,8 +18,8 @@ import javax.persistence.Id;
 public class Endereco {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private String cep;
   private String bairro;
   private String uf;
@@ -31,11 +31,11 @@ public class Endereco {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -42,7 +42,7 @@ public class PedidoDAO {
         return entity;
   }
   
-  public Pedido remove(Integer id) {
+  public Pedido remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Pedido entity = null;
         try {
@@ -59,7 +59,7 @@ public class PedidoDAO {
         return entity;
     }
   
-  public Pedido findById(Integer id) {
+  public Pedido findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Pedido entity = null;
         try {

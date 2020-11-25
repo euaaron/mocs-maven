@@ -42,7 +42,7 @@ public class PratoDAO {
         return entity;
   }
   
-  public Prato remove(Integer id) {
+  public Prato remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Prato entity = null;
         try {
@@ -59,7 +59,7 @@ public class PratoDAO {
         return entity;
     }
   
-  public Prato findById(Integer id) {
+  public Prato findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Prato entity = null;
         try {

@@ -48,7 +48,6 @@ public class TratamentoExcecao extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("error.jsp");
             view.forward(request, response);
         }
-        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -18,8 +18,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Estabelecimento {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private String cnpj;
   private String telefone;
   private String nomeFantasia;
@@ -30,11 +30,11 @@ public class Estabelecimento {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

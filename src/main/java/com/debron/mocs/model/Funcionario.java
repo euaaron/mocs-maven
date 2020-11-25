@@ -20,8 +20,8 @@ public class Funcionario {
 
   
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private String id;
   private Integer nivelPermissao;
   private Boolean statusConta;
   @OneToOne
@@ -31,11 +31,11 @@ public class Funcionario {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

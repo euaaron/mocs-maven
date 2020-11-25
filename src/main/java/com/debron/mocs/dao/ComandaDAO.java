@@ -42,7 +42,7 @@ public class ComandaDAO {
         return entity;
   }
   
-  public Comanda remove(Integer id) {
+  public Comanda remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Comanda entity = null;
         try {
@@ -59,7 +59,7 @@ public class ComandaDAO {
         return entity;
     }
   
-  public Comanda findById(Integer id) {
+  public Comanda findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Comanda entity = null;
         try {

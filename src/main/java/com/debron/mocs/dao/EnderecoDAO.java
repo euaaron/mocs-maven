@@ -42,7 +42,7 @@ public class EnderecoDAO {
         return entity;
   }
   
-  public Endereco remove(Integer id) {
+  public Endereco remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Endereco entity = null;
         try {
@@ -59,7 +59,7 @@ public class EnderecoDAO {
         return entity;
     }
   
-  public Endereco findById(Integer id) {
+  public Endereco findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Endereco entity = null;
         try {

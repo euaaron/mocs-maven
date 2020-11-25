@@ -42,7 +42,7 @@ public class EstabelecimentoDAO {
         return entity;
   }
   
-  public Estabelecimento remove(Integer id) {
+  public Estabelecimento remove(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Estabelecimento entity = null;
         try {
@@ -59,7 +59,7 @@ public class EstabelecimentoDAO {
         return entity;
     }
   
-  public Estabelecimento findById(Integer id) {
+  public Estabelecimento findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();
         Estabelecimento entity = null;
         try {

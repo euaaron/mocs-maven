@@ -47,7 +47,7 @@
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">Id:</label>
                     <div class="col-sm-2">
-                        <input type="number" min="1" class="form-control" name="txtIdUsuario" id="id" maxlength="10" value="${usuario.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>/>
+                        <input type="text" class="form-control" name="txtIdUsuario" id="id" value="${usuario.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -149,9 +149,6 @@
                 }
                 if (form.txtSenha.value != form.txtReSenha.value) {
                     mensagem = mensagem + "Campos de Senha diferentes\n";
-                }
-                if (!campoNumerico(form.txtIdUsuario.value)) {
-                    mensagem = mensagem + "Código do Usuario deve ser numérico\n";
                 }
                 if (mensagem == "") {
                     return true;

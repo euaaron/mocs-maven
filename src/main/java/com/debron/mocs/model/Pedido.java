@@ -21,8 +21,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Pedido {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String id;
   private int quantidade;
   
   @OneToOne
@@ -34,11 +34,11 @@ public class Pedido {
   private String createdAt;
   private String updatedAt;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

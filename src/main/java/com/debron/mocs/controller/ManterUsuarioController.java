@@ -7,7 +7,10 @@ package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.UsuarioDAO;
 import com.debron.mocs.model.Usuario;
+import com.debron.mocs.utils.Crypto;
+import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -94,7 +97,7 @@ public class ManterUsuarioController extends HttpServlet {
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
-        int idUsuario = Integer.parseInt(req.getParameter("id"));
+        String idUsuario = req.getParameter("id");
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
         req.setAttribute("usuario", usuario);
       }
@@ -113,7 +116,7 @@ public class ManterUsuarioController extends HttpServlet {
     String operacao = req.getParameter("operacao");
     String errorMsg;
 
-    Integer idUsuario = Integer.parseInt(req.getParameter("txtIdUsuario"));
+    String idUsuario = req.getParameter("txtIdUsuario");
     String nome = req.getParameter("txtNome");
     String cpf = req.getParameter("txtCpf");
     String dataNascimento = req.getParameter("txtDataNascimento");
@@ -127,14 +130,15 @@ public class ManterUsuarioController extends HttpServlet {
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
-
+        
         Usuario usuario = new Usuario();
+        usuario.setId(RandomID.generate());
         usuario.setNome(nome);
         usuario.setCpf(cpf);
         usuario.setDataNascimento(dataNascimento);
         usuario.setEmail(email);
         usuario.setTelefone(telefone);
-        usuario.setSenha(senha);
+        usuario.setSenha(Crypto.encrypt(senha));
         usuario.setCreatedAt(hoje);
         usuario.setUpdatedAt(hoje);
 
@@ -149,16 +153,16 @@ public class ManterUsuarioController extends HttpServlet {
         usuario.setDataNascimento(dataNascimento);
         usuario.setEmail(email);
         usuario.setTelefone(telefone);
-        usuario.setSenha(senha);
+        usuario.setSenha(Crypto.encrypt(senha));
         usuario.setUpdatedAt(hoje);
         UsuarioDAO.getInstancia().save(usuario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
               "PesquisarUsuarioController");
       view.forward(req, res);
-    } catch (IOException e) {
+    } catch (IOException | NoSuchAlgorithmException e) {
       throw new ServletException(e);
-    }
+    } 
   }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
