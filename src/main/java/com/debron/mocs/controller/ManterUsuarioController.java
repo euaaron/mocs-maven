@@ -8,7 +8,6 @@ package com.debron.mocs.controller;
 import com.debron.mocs.dao.UsuarioDAO;
 import com.debron.mocs.model.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -17,8 +16,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +31,8 @@ import net.sf.jasperreports.engine.JasperPrint;
  * @author Aaron & Debora
  */
 public class ManterUsuarioController extends HttpServlet {
-  
-  private DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy_HHmmss");
+
+  private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,29 +51,29 @@ public class ManterUsuarioController extends HttpServlet {
           ClassNotFoundException {
     String acao = req.getParameter("acao");
     switch (acao) {
-      case "confirmar":
-        confirmarOperacao(req, res);
+      case "prepararOperacao":
+        prepararOperacao(req, res);
         break;
-      case "emitir":
-        emitir(req, res);
+      case "emitirRelatorio":
+        emitirRelatorio(req, res);
         break;
       default:
-        prepararOperacao(req, res);
+        confirmarOperacao(req, res);
         break;
     }
   }
 
-  public void emitir(HttpServletRequest req, HttpServletResponse res)
+  public void emitirRelatorio(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
     Connection conexao = null;
     try {
       Date date = new Date();
       String nomeRelatorio = "Relatorio_" + dateFormat.format(date) + ".pdf";
 
-      HashMap parametros;
-      parametros = new HashMap();
-      parametros.put("P_COD_CURSO", Integer.parseInt(req.getParameter(
-              "txtCodCurso")));
+      HashMap parametros = new HashMap();
+      parametros.put(
+              "usuario_id", 
+              Integer.parseInt(req.getParameter("txtUsuarioId")));
       String relatorio = getServletContext().getRealPath("/WEB-INF") + "/Relatorio.jasper";
       JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros,
               conexao);
@@ -94,7 +93,7 @@ public class ManterUsuarioController extends HttpServlet {
     try {
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
-      if (!operacao.equals("Incluir")) {
+      if (!operacao.equalsIgnoreCase("Incluir")) {
         int idUsuario = Integer.parseInt(req.getParameter("id"));
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
         req.setAttribute("usuario", usuario);
@@ -127,34 +126,23 @@ public class ManterUsuarioController extends HttpServlet {
         UsuarioDAO.getInstancia().remove(idUsuario);
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
-        if (UsuarioDAO.getInstancia().findById(idUsuario) != null) {
-          String hoje = dateFormat.format(new Date());
-          
-          Usuario usuario = new Usuario();
-          usuario.setId(idUsuario);
-          usuario.setNome(nome);
-          usuario.setCpf(cpf);
-          usuario.setDataNascimento(dataNascimento);
-          usuario.setEmail(email);
-          usuario.setTelefone(telefone);
-          usuario.setSenha(senha);
-          usuario.setCreatedAt(hoje);
-          usuario.setUpdatedAt(hoje);
+        String hoje = dateFormat.format(new Date());
 
-          UsuarioDAO.getInstancia().save(usuario);
-        } else {
-          errorMsg = "O usuário já existe ou o ID "
-                  + idUsuario
-                  + " já foi utilizado.";
-          req.setAttribute("errorMsg", errorMsg);
-          RequestDispatcher view = req.getRequestDispatcher(
-                  "ManterUsuarioController?acao=prepararOperacao&operacao=Incluir"
-          );
-          view.forward(req, res);
-        }
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setCpf(cpf);
+        usuario.setDataNascimento(dataNascimento);
+        usuario.setEmail(email);
+        usuario.setTelefone(telefone);
+        usuario.setSenha(senha);
+        usuario.setCreatedAt(hoje);
+        usuario.setUpdatedAt(hoje);
+
+        UsuarioDAO.getInstancia().save(usuario);
+
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
-        
+
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
         usuario.setNome(nome);
         usuario.setCpf(cpf);

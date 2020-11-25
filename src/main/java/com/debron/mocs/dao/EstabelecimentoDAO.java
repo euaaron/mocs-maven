@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Estabelecimento;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -77,7 +76,7 @@ public class EstabelecimentoDAO {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Estabelecimento> entities = null;
         try {
-            entities = em.createQuery("from Estabelecimento ${estabelecimento} e").getResultList();
+            entities = em.createQuery("from Estabelecimento e").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {

@@ -5,18 +5,17 @@
  */
 package com.debron.mocs.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
  *
  * @author Aaron e Debora
  */
+@Entity
 public class Estabelecimento {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +24,7 @@ public class Estabelecimento {
   private String telefone;
   private String nomeFantasia;
   private String inscEstadual;
-  @OneToOne(targetEntity = Endereco.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="enderecoId")
+  @OneToOne
   private Endereco endereco;
   
   private String createdAt;

@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Funcionario;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -77,7 +76,7 @@ public class FuncionarioDAO {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Funcionario> entities = null;
         try {
-            entities = em.createQuery("from Funcionario ${funcionario} e").getResultList();
+            entities = em.createQuery("from Funcionario f").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {

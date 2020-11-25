@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Endereco;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -77,7 +76,7 @@ public class EnderecoDAO {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Endereco> entities = null;
         try {
-            entities = em.createQuery("from Endereco ${endereco} e").getResultList();
+            entities = em.createQuery("from Endereco e").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {

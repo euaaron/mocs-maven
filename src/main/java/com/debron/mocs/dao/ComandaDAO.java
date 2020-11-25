@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Comanda;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -77,7 +76,7 @@ public class ComandaDAO {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Comanda> entities = null;
         try {
-            entities = em.createQuery("from Comanda ${comanda} e").getResultList();
+            entities = em.createQuery("from Comanda c").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {

@@ -5,10 +5,9 @@
  */
 package com.debron.mocs.dao;
 
-import javax.persistence.EntityManager;
-
 import com.debron.mocs.model.Prato;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -77,7 +76,7 @@ public class PratoDAO {
         EntityManager em = new ConexaoFactory().getConexao();
         List<Prato> entities = null;
         try {
-            entities = em.createQuery("from Prato ${prato} e").getResultList();
+            entities = em.createQuery("from Prato p").getResultList();
         } catch (Exception e) {
             System.err.println(e);
         } finally {
