@@ -45,12 +45,6 @@
                     </div>
                 </c:if>
                 <div class="form-group row">
-                    <label for="id" class="col-sm-2 col-form-label">Id:</label>
-                    <div class="col-sm-2">
-                        <input type="text" class="form-control" name="txtIdUsuario" id="id" value="${usuario.id}" <c:if test="${operacao != 'Incluir'}"> readonly</c:if>/>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="txtNome" id="nome" maxlength="45" value="${usuario.nome}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>/>

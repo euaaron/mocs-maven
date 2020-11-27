@@ -5,10 +5,12 @@
  */
 package com.debron.mocs.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -26,6 +28,9 @@ public class Usuario {
   private String email;
   private String telefone;
   private String senha;
+  
+  @OneToOne(cascade = CascadeType.ALL)
+  private Endereco EnderecoPadrao;
 
   private String createdAt;
   private String updatedAt;

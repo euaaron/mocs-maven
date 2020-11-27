@@ -5,6 +5,7 @@
  */
 package com.debron.mocs.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Estabelecimento {
   private String telefone;
   private String nomeFantasia;
   private String inscEstadual;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Endereco endereco;
   
   private String createdAt;

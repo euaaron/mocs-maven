@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26 de nov de 2020, 20:50:08
+    Author     : Aaron
+*/
+
+@import url(breadcrumb.css);
+@import url(https://pro.fontawesome.com/releases/v5.15.0/css/all.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700;900&display=swap');
+
+:root {
+    font-size: 10px;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+    transition: .2s;
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+body {
+    flex: 1;
+    height: 100vh;
+    width: 100vw;
+    color: #d2d2d2;
+    background: #2d2d2d;
+    padding: 0 3rem;
+    font-size: 1.6rem;
+}
+
+#formLogin {
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 24rem;
+    height: 100%;
+}
+
+.input {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input ~ .input {
+    margin: 2rem 0;
+}
+
+.input > label {
+    align-self: flex-start;
+    
+}
+
+.input > div {
+    flex: 1;
+    align-items: center;
+    border: solid .2rem transparent;
+    border-radius: .8rem;
+    background: #3e3e3e;
+    color: #2d2d2d;
+}
+
+.input > div > i {
+    margin: 0 .8rem;
+    transition: 0s;
+}
+
+.input > div:focus-within {
+    border: solid .2rem white;
+    color: #d2d2d2;
+}
+
+.input > div > input {
+    flex: 1;
+    background: none;
+    color: #f1f1f1;
+    height: 3.2rem;
+}

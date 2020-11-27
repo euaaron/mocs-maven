@@ -16,43 +16,52 @@
         <title>MOCS</title>
 
         <!-- Estilos e scripts próprios -->
-        <link rel="stylesheet" href="./css/main.css"/>
-        <link rel="stylesheet" href="./css/login.css"/>
+        <link rel="stylesheet" href="./css/alternate.css"/>
+        <!-- link rel="stylesheet" href="./css/login.css" -->
         <script src="./js/filtros.js"></script>
     </head>
     <body>
 
-        <div class="page-dispose full-screen">
-            <div class="header total-center container-sm">
-                <div>
-                    <div class="display-flex total-center">
-                        <h1 class="font-md-r">Bem-vindo ao <br /><span
-                                class="bold black">MOCS</span></h1>
-                    </div>
-                    <h5 class="font-sm-r">O maior portal virtual de controle de pedidos do mundo.</h5>
-                </div>
-            </div>
-            <div class="no-margin-left container-sm display-flex total-center">
+        <div class="header total-center container-sm">
+            <div>
                 <div class="display-flex total-center">
-                    <div class="content">
-                        <div class="form-group" id="formLogin">
-                            <form id="login" class="link-btn" action="inicio?acao=confirmarOperacao&operacao=logar&agente=1" name="frmLogin" method="post">
+                    <h1 class="font-md-r">Bem-vindo ao <br /><span
+                            class="bold black">M<i class="fad fa-egg-fried"></i>CS</span></h1>
+                </div>
+                <h5 class="font-sm-r">O maior portal virtual de controle de pedidos do mundo.</h5>
+            </div>
+        </div>
+        <div class="no-margin-left container-sm display-flex total-center">
+            <div class="display-flex total-center">
+                <div class="content">
+                    <section id="formLogin">
+                        <form id="login" action="<%=request.getContextPath()%>/SessionController" name="frmLogin" method="post">
+                            <div class="input">
                                 <label for="txtEmail">Email</label><br />
-                                <input id="txtEmail" name="txtEmail" class="form-control" type="text" name="txtEmail">
-                                <label for="txtSenha">Senha</label><br />
-                                <input id="txtSenha" name="txtSenha" class="form-control" type="password" name="txtSenha">
-                                <button id="loginUser" class=" margin-top-2 btn btn-primary btn-sm" submit>Entre</button>
-                            </form>
-                            <div>
-                                <a id="register" class="link-btn margin-top-2" href="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir"><button class="btn btn-secondary btn-light btn-sm">Registre-se</button></a>
-                                <br />
-                                <p id="loginGuest">Ou <a href="inicio?acao=confirmarOperacao&operacao=logar&agente=0">entre como convidado</a>.</p>
+                                <div>
+                                    <i class="fas fa-envelope"></i>
+                                    <input id="txtEmail" name="txtEmail" type="text" name="txtEmail">
+                                </div>
                             </div>
-                            <c:if test="${erro != null}"><p>${erro}</p></c:if>
+                            <div class="input">
+                                <label for="txtSenha">Senha</label><br />
+                                <div>
+                                    <i class="fas fa-key"></i>
+                                    <input id="txtSenha" name="txtSenha" type="password" name="txtSenha">
+                                </div>
+                            </div>
+
+                            <button id="loginUser" submit>Entrar</button>
+                            <a id="register" href="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir">Registre-se</a>
+                        </form>
+                        <div>
+                            <p id="loginGuest">Ou então <a href="inicio?acao=confirmarOperacao&operacao=logar&agente=0">entre como convidado</a>.</p>
                         </div>
-                    </div>
+                        <c:if test="${erro != null}"><p>${erro}</p></c:if>
+                    </section>
                 </div>
             </div>
         </div>
+
     </body>
 </html>

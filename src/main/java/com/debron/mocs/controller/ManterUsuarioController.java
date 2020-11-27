@@ -87,7 +87,7 @@ public class ManterUsuarioController extends HttpServlet {
       res.setContentType("application/pdf");
       res.getOutputStream().write(relat);
     } catch (JRException | IOException ex) {
-      ex.printStackTrace();
+      throw new ServletException(ex);
     }
   }
 
