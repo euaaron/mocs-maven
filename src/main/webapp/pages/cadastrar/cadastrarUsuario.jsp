@@ -98,7 +98,7 @@
 
       <div>
         <button type="submit" name="btnIncluir" value="Confirmar">Criar conta</button>
-        <a href="/mocs/"><i class="fad fa-chevron-left"></i> Voltar</a>
+        <a href="/"><i class="fad fa-chevron-left"></i> Voltar</a>
       </div>
     </form>
 
