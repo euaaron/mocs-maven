@@ -1,0 +1,45 @@
+a,p,
+span,
+input,
+button,
+h1,h2,h3,
+h4,h5,h6,
+ul,ol,li,
+tr,td,th,
+form,label,
+section,aside,
+html,body,div {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Roboto Slab', serif;
+  color: var(--dark);
+  transition: .2s border;
+  transition: .2s color;
+}
+
+::selection {
+  background-color: var(--highlight);
+  color: var(--light);
+}
+
+body {
+  flex-direction: row;
+  background-color: var(--primary);
+  width: 100vw;
+  height: 100vh;
+}
+
+a:hover,
+button:hover {
+  cursor: pointer;
+}
+
+a:focus,
+a:hover {
+  color: var(--highlight);
+}

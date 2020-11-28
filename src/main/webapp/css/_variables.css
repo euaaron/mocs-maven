@@ -1,0 +1,12 @@
+:root {
+  font-size: 20px;
+  --primary: #b4593d;
+  --secondary: #c5836f;
+  --tertiary: #3f3531;
+  --dark: #2a2a2a;
+  --light: #fafafa;
+  --placeholder-light:#dcdcdc;
+  --hover: aquamarine;
+  --highlight:#92ca52;
+  --logo-color: #e7bc45;
+}

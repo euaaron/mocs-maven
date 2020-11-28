@@ -33,7 +33,7 @@ public class PesquisarUsuarioController extends HttpServlet {
           throws ServletException, IOException {
     req.setAttribute("usuarios", UsuarioDAO.getInstancia().findAll());
     RequestDispatcher view = req.getRequestDispatcher(
-            "/pesquisarUsuario.jsp");
+            "/pages/pesquisar/pesquisarUsuario.jsp");
     view.forward(req, res);
   }
 
