@@ -13,6 +13,7 @@
         <class>com.debron.mocs.model.Funcionario</class>
         <class>com.debron.mocs.model.Endereco</class>
         <class>com.debron.mocs.model.Estabelecimento</class>
+        <class>com.debron.mocs.model.EnderecosUsuario</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

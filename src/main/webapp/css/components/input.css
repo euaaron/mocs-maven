@@ -1,0 +1,56 @@
+label {
+  width: 100%;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: .8rem;
+  color: var(--tertiary);
+}
+
+label:focus-within {
+  color: var(--light);
+}
+
+label ~ label {
+  margin: .6rem 0 0 0;
+}
+
+label > div {
+  background: var(--secondary);
+  color: var(--primary);
+  border: solid .12rem var(--secondary);
+  border-radius: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+label > div:hover {
+  border: solid .12rem var(--light);
+}
+
+label > div:focus-within {
+  color: var(--light);
+  border: solid .12rem var(--light);
+}
+
+label > div > input {
+  flex:1;
+  font-size: 1.02rem;
+  width: 100%;
+  background: transparent;
+  border-radius: 0 .8rem .8rem 0;
+  margin: 0 .4rem;
+  color: var(--tertiary);
+}
+
+label > div > input:focus {
+  color: var(--light);
+}
+
+label > div > i {
+  margin: .4rem 0 .4rem .4rem;
+}
+
+label > div > input::placeholder {
+  color: var(--tertiary);
+  align-self: center;
+}

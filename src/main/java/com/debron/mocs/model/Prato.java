@@ -5,6 +5,7 @@
  */
 package com.debron.mocs.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,8 @@ public class Prato {
   private String id;
   private String nome;
   private String descricao;
-  @ManyToOne
+  
+  @ManyToOne(cascade = CascadeType.DETACH)
   private Estabelecimento estabelecimento;
   private Float preco;
   private String imagemUrl;

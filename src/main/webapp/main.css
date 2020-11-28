@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;400;600&display=swap');
+@import url('https://pro.fontawesome.com/releases/v5.15.0/css/all.css');
+
+@import url('./css/_variables.css');
+@import url('./css/_global.css');
+@import url('./css/components/all.css');

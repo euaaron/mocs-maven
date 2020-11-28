@@ -1,0 +1,108 @@
+form {
+  flex-direction: column;
+  max-width: 40rem;
+  align-items: center;
+  justify-content: center;
+}
+
+form > div {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: .6rem 0 0 0;
+}
+
+form > div > button {
+  flex:1;
+  width: 100%;
+  padding: .4rem 0;
+  border-radius: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: .8rem;
+  transition: .4s;
+}
+
+form > div > button > i {
+  margin-right: .8rem;
+}
+
+form > div > p {
+  color: var(--secondary);
+  margin: .2rem 1rem;
+}
+
+form > div > p a {
+  text-decoration: underline;
+  color:var(--light);
+}
+
+form > div > p a:hover {
+  text-decoration: none;
+  color: var(--hover);
+}
+
+form > div > label {
+  width: 100%;
+  flex-direction: column;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+form > div > label:focus-within {
+  color: var(--light);
+}
+
+form > div > label ~ label {
+  margin: .6rem 0 0 0;
+}
+
+form > div > label > div {
+  background: var(--secondary);
+  color: var(--primary);
+  width: 100%;
+  border: solid .12rem var(--secondary);
+  border-radius: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+form > div > label > div:hover {
+  border: solid .12rem var(--hover);
+}
+
+form > div > label > div > i {
+  margin: .4rem .4rem;
+}
+
+form > div > label > div:focus-within {
+  color: var(--light);
+  border: solid .12rem var(--light);
+}
+
+form > div > label > div > input {
+  flex:1;
+  color: var(--light);
+  font-size: 1rem;
+  width: 100%;
+  background: transparent;
+  border-radius: 0 .8rem .8rem 0;
+}
+
+#form {
+  flex-direction: column;
+}
+
+#form > i {
+  font-size: 4rem;
+}
+
+#form > i {
+  color: var(--light);
+}
+
+#form > h2 {
+  color: var(--light);
+}

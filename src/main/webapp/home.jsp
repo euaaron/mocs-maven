@@ -147,7 +147,7 @@
                 </li>
                 <li class="nav-item">
                     <div class="max-width-rel">
-                        <a class="menu-item align-content-center justify-content-between" href="/MOCS/">
+                        <a class="menu-item align-content-center justify-content-between" href="<%=request.getContextPath()%>/SessionController?action=logout">
                             <span class="nav-link">Login/Logout</span>
                             <div class="btn-image">
                                 <svg 

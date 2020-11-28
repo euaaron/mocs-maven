@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>MOX</display-name>
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
     <servlet>
         <servlet-name>TratamentoExcecao</servlet-name>
         <servlet-class>com.debron.mocs.exception.TratamentoExcecao</servlet-class>
@@ -15,6 +24,10 @@
     <servlet>
         <servlet-name>ManterEstabelecimentoController</servlet-name>
         <servlet-class>com.debron.mocs.controller.ManterEstabelecimentoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SessionController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.SessionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TratamentoExcecao</servlet-name>
@@ -32,9 +45,8 @@
         <servlet-name>ManterEstabelecimentoController</servlet-name>
         <url-pattern>/ManterEstabelecimentoController</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+    <servlet-mapping>
+        <servlet-name>SessionController</servlet-name>
+        <url-pattern>/SessionController</url-pattern>
+    </servlet-mapping>
 </web-app>

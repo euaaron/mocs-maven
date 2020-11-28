@@ -17,8 +17,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -87,7 +85,7 @@ public class ManterUsuarioController extends HttpServlet {
       res.setContentType("application/pdf");
       res.getOutputStream().write(relat);
     } catch (JRException | IOException ex) {
-      ex.printStackTrace();
+      throw new ServletException(ex);
     }
   }
 
@@ -102,7 +100,7 @@ public class ManterUsuarioController extends HttpServlet {
         req.setAttribute("usuario", usuario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "/cadastrarUsuario.jsp");
+              "/pages/cadastrar/cadastrarUsuario.jsp");
       view.forward(req, res);
     } catch (ServletException e) {
       throw e;
@@ -180,20 +178,16 @@ public class ManterUsuarioController extends HttpServlet {
           throws ServletException, IOException {
     try {
       processRequest(req, res);
-    } catch (SQLException ex) {
-      Logger.getLogger(ManterUsuarioController.class.getName()).
-              log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(ManterUsuarioController.class.getName()).
-              log(Level.SEVERE, null, ex);
+    } catch (SQLException | ClassNotFoundException ex) {
+      throw new ServletException(ex);
     }
   }
 
   /**
    * Handles the HTTP <code>POST</code> method.
    *
-   * @param request  servlet request
-   * @param response servlet response
+   * @param req  servlet request
+   * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
    * @throws IOException      if an I/O error occurs
@@ -203,12 +197,8 @@ public class ManterUsuarioController extends HttpServlet {
           throws ServletException, IOException {
     try {
       processRequest(req, res);
-    } catch (SQLException ex) {
-      Logger.getLogger(ManterUsuarioController.class.getName()).
-              log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(ManterUsuarioController.class.getName()).
-              log(Level.SEVERE, null, ex);
+    } catch (SQLException | ClassNotFoundException ex) {
+      throw new ServletException(ex);
     }
   }
 

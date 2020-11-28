@@ -1,0 +1,59 @@
+body > section:first-child {
+  flex: 3;
+  padding: 2rem 0;
+  background: var(--tertiary);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+body > section > h1 {
+  color: var(--light);
+  align-items: center;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+body > section > h1 > i {
+  color: var(--logo-color);
+}
+
+body > section > p {
+  color: var(--primary);
+}
+
+body > section ~ section {
+  flex: 2;
+  padding: 5rem 0;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+body > section ~ section > i {
+  font-size: 4rem;
+  color: var(--light);
+}
+
+body > section ~ section > h2 {
+  color: var(--light);
+}
+
+@media screen and (max-width: 799px) {
+  
+  body {
+    flex-direction: column;
+  }
+  
+  body  > section {
+    flex: 1 !important;
+  }
+  
+  body > section ~ section {
+    flex: 3 !important;
+    padding: 3rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+}

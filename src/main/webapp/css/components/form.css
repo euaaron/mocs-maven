@@ -1,0 +1,21 @@
+form {
+  flex:1;
+  flex-direction: column;
+  max-width: 40rem;
+  align-items: center;
+  justify-content: center;
+}
+
+form > div {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: .6rem 0 0 0;
+}
+
+form > div > p {
+  color: var(--secondary);
+  margin: .2rem 1rem;
+  align-items: baseline;
+}
