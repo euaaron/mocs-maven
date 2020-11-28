@@ -17,7 +17,7 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com:3306/heroku_e1fb7268a5ce6ae"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_e1fb7268a5ce6ae"/>
             <property name="javax.persistence.jdbc.user" value="b6893baf2c505c"/>
             <property name="javax.persistence.jdbc.password" value="13370d51"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>

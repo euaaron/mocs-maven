@@ -39,7 +39,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>TratamentoExcecao</servlet-name>
-        <url-pattern>/TratamentoExcecao</url-pattern>
+        <url-pattern>/Error</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ManterUsuarioController</servlet-name>
@@ -57,4 +57,16 @@
         <servlet-name>SessionController</servlet-name>
         <url-pattern>/SessionController</url-pattern>
     </servlet-mapping>
+    <error-page>
+      <error-code>404</error-code>
+      <location>/Error</location>
+    </error-page>
+    <error-page>
+      <exception-type>java.lang.Exception</exception-type>
+      <location>/Error</location>
+    </error-page>
+    <error-page>
+      <exception-type>javax.servlet.ServletException</exception-type>
+      <location>/Error</location>
+    </error-page>
 </web-app>
