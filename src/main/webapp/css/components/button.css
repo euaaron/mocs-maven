@@ -1,0 +1,20 @@
+button {
+  width: 100%;
+  padding: .4rem 0;
+  border-radius: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: .8rem;
+  transition: .4s;
+}
+
+button > i {
+  margin: 0 .8rem;
+}
+
+button:focus,
+button:hover {
+  background: var(--highlight);
+  color: var(--light);
+}
