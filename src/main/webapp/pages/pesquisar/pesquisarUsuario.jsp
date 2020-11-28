@@ -69,7 +69,7 @@
         </form>
         </div>
         <div>
-            <a href="ManterUsuarioController?acao=emitirRelatorio">Gerar Relatório</a>
+            <a href="ListaUsuarioController?acao=emitir">Lista de Usuarios</a>
         </div>
     </body>
 </html>

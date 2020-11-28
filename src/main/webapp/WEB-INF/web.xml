@@ -4,6 +4,10 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>ListaUsuarioController</servlet-name>
+        <url-pattern>/ListaUsuarioController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -28,6 +32,10 @@
     <servlet>
         <servlet-name>SessionController</servlet-name>
         <servlet-class>com.debron.mocs.controller.SessionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListaUsuarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ListaUsuarioController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TratamentoExcecao</servlet-name>
