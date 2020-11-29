@@ -43,3 +43,7 @@ a:focus,
 a:hover {
   color: var(--highlight);
 }
+
+.error {
+  color: var(--alert);
+}
