@@ -1,10 +1,12 @@
 body > section:first-child {
-  flex: 3;
-  padding: 2rem 0;
-  background: var(--tertiary);
+  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  padding: 2rem 0;
+
+  background: var(--tertiary);
 }
 
 body > section > h1 {
@@ -12,6 +14,10 @@ body > section > h1 {
   align-items: center;
   font-size: 4rem;
   font-weight: 600;
+}
+
+button ~ p {
+  margin-top: .6rem;
 }
 
 body > section > h1 > i {
@@ -23,11 +29,12 @@ body > section > p {
 }
 
 body > section ~ section {
-  flex: 2;
-  padding: 5rem 0;
-  align-items: center;
-  justify-content: space-between;
+  flex: 3;
   flex-direction: column;
+  align-items: center;  
+  justify-content: center;
+
+  padding: 2rem 0;  
 }
 
 body > section ~ section > i {
@@ -39,21 +46,19 @@ body > section ~ section > h2 {
   color: var(--light);
 }
 
-@media screen and (max-width: 799px) {
-  
+@media screen and (min-width: 1000px) {
+
   body {
-    flex-direction: column;
+    flex-direction: row;
   }
-  
-  body  > section {
-    flex: 1 !important;
+
+  body  > section:first-child {
+    flex: 3;
   }
-  
+
   body > section ~ section {
-    flex: 3 !important;
-    padding: 3rem;
-    align-items: center;
-    justify-content: space-between;
+    flex: 2;
+    padding: 5rem 0;
   }
 
 }

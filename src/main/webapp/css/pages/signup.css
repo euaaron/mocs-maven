@@ -1,35 +1,16 @@
-body {
-  flex: 1;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: center;
-}
-
 body > section:first-child {
-  flex: 3;
+  flex: 1;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
   align-items: center;
   justify-content: center;
+
+  padding: 2rem 0;
+
   background-color: var(--tertiary);
 }
 
-body > section ~ section {
-  flex: 2;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary);
-}
-
-body > section > form{
-  align-items: center;
-  justify-content: center;
+a {
+  margin-top: .8rem;
 }
 
 body > section > i {
@@ -38,29 +19,41 @@ body > section > i {
 }
 
 body > section > h2 {
+  margin-top: 1rem;
   color: var(--light);
 }
 
-@media screen and (max-width: 799px) {
+body > section ~ section {
+  flex: 3;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem 0;
+
+  background-color: var(--primary);
+}
+
+
+
+@media screen and (min-width: 1000px) {
   
   body {
-    flex-direction: column;
+    flex-direction: row-reverse;
   }
-  
+
   body  > section:first-child {
-    height: 30vh;
-    padding: 2rem 0;
+    flex: 3;
   }
-  
-  body > section > i {
-    display: none;
-    color: transparent;
-  }
-  
+
   body > section ~ section {
-    height: 100vh;
+    flex: 2;
+    justify-content: center;
+  }
+
+  body > section > form{
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
 }

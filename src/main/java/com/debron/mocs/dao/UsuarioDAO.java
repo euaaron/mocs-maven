@@ -111,7 +111,7 @@ public class UsuarioDAO {
     EntityManager em = new ConexaoFactory().getConexao();
     List<Usuario> entities = null;
     try {
-      entities = em.createQuery("from Usuario u").getResultList();
+      entities = em.createQuery("from Usuario u order by u.nome").getResultList();
     } catch (Exception e) {
       System.err.println(e);
     } finally {

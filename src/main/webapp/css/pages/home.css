@@ -10,10 +10,13 @@ body * > *  {
 
 body > nav { 
   flex: 1;
+  top: 0;
   flex-direction: row;
+  text-align: center;
 }
 
 body > nav h1 {
+  
   color: var(--light);
   align-items: center;
   font-size: 4rem;

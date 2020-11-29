@@ -1,0 +1,146 @@
+.wrap {
+  flex-wrap: wrap;
+}
+
+.wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-base {
+  justify-content: baseline;
+}
+
+.self-align-base {
+  align-self: baseline;
+}
+
+.self-justify-base {
+  justify-self: baseline;
+}
+
+.align-base {
+  align-items: baseline;
+}
+
+.stretch {
+  flex-grow: stretch;
+}
+
+.max-width {
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+  height: 100%;
+  flex-direction: column;
+  place-self: center;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.row ~ .row {
+  margin-top: .8rem;
+}
+
+.row > p ~ p {
+  margin-left: .6rem;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.col ~ .col {
+  margin-left: .8rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
+}
+
+.flex-4 {
+  flex: 4;
+}
+
+.flex-5 {
+  flex: 5;
+}
+
+.flex-6 {
+  flex: 6;
+}
+
+.huge {
+  font-size: 8rem;
+}
+
+.bg-primary{
+  background: var(--primary);
+}
+
+.bg-secondary {
+  background: var(--secondary);
+}
+
+.bg-tertiary {
+  background: var(--tertiary);
+}
+
+.bg-success {
+  background: var(--highlight);
+}
+
+.bg-dark {
+  background: var(--dark);
+}
+
+.bg-light {
+  background: var(--light);
+}
+
+.logo {
+  align-items: baseline;
+  color: var(--light);
+}
+
+.logo i {
+  color: var(--logo-color);
+}
+
+.breadcrumb {
+  flex-direction: row;
+  background: var(--secondary);
+  border-radius: 1rem;
+}
+
+.breadcrumb > ul {
+  align-items: baseline;
+}
+
+.error {
+  color: var(--alert);
+}

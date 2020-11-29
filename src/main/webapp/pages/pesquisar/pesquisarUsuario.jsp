@@ -10,66 +10,101 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pesquisar Usuários</title>
 
-        <%-- Estilos e scripts próprios --%>
-        <link rel="stylesheet" href="./css/main.css"/>
-        <script src="./js/filtros.js"></script>
-    </head>
-    <body>
-        <nav class="top-bar">
-            <div class="total-center">
-                <a class="navbar-brand" href="inicio">MOCS</a>
-            </div>
-        </nav>
-        <ul class="breadcrumb">
-            <li><a href="inicio">Menu</a></li>
-            <li>Pesquisar</li>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Pesquisar Usuários</title>
+
+  <%-- Estilos e scripts próprios --%>
+  <link rel="stylesheet" href="./main.css" />
+  <link rel="stylesheet" href="./css/pages/pesquisar.css" />
+  <script src="./js/filtros.js"></script>
+</head>
+
+<body>
+  <nav class="row bg-tertiary">
+    <div class="total-center">
+      <a class="navbar-brand" href="/SessionController">
+        <h1 class="logo">M<i class="fad fa-egg-fried"></i>CS</h1>
+      </a>
+    </div>
+  </nav>
+
+  <section class="container">
+
+    <header>
+      <div class="row breadcrumb">
+        <ul>
+          <li><a href="/SessionController">Menu Inicial</a></li>
+          <li><i class="fas fa-arrow-right"></i></li>
+          <li>&nbsp;Pesquisar Usuários</li>
         </ul>
-        <div class="container">
-        <h1 class="page-title">Pesquisar Usuarios</h1>
-        <c:if test="${usuarios.size() != 0}">
-        <table>
-            <tr class="text-center text-light bg-dark">
-                <th>COD</th>
-                <th></th>
-                <th>NOME</th>
-                <th></th>
-                <th>E-MAIL</th>
-                <th></th>
-                <th>TELEFONE</th>
-                <th></th>
-                <th colspan="2">OPÇÕES</th>
-            </tr>
-            
+      </div>
+
+      <div class="col">
+        <h1>Pesquisar Usuarios</h1>
+        <div class="row">
+          <a href="ListaUsuarioController?acao=emitir" title="Salvar em PDF"><i class="fad fa-print"></i></a>
+          <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" title="Adicionar novo usuário"><i
+              class="fad fa-plus"></i></a>
+        </div>
+      </div>
+    </header>
+
+    <c:if test="${usuarios.size() != 0}">
+      <section class="wrap-reverse">
+        <div class="row align-base">
+
+          <div class="col flex-3">
+            <div class="row">
+              <h4>NOME</h4>
+            </div>
             <c:forEach items="${usuarios}" var="usuario">
-                <tr>
-                    <td><c:out value="${usuario.id}"/></td>
-                    <td></td>
-                    <td><c:out value="${usuario.nome}"/></td>
-                    <td></td>
-                    <td><c:out value="${usuario.email}"/></td>
-                    <td></td>
-                    <td><c:out value="${usuario.telefone}"/></td>
-                    <td></td>
-                    <td>
-                        <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${usuario.id}" />" ><i class="fas fa-edit"></i> Editar</a>
-                    </td>
-                    <td>
-                        <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${usuario.id}" />" ><i class="fas fa-trash"></i> Excluir</a>
-                    </td>
-                </tr>
+              <div class="row">
+                <span>
+                  <c:out value="${usuario.nome}" /></span>
+              </div>
             </c:forEach>
-        </table>
-        </c:if>
-        <form action="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" method="post">
-            <button class="btn btn-primary" type="submit" name="btnIncluir" >Incluir</button>
-        </form>
+          </div>
+
+          <div class="col flex-3">
+            <div class="row">
+              <h4>E-MAIL</h4>
+            </div>
+            <c:forEach items="${usuarios}" var="usuario">
+              <div class="row">
+                <span>
+                  <c:out value="${usuario.email}" /></span>
+              </div>
+            </c:forEach>
+          </div>
+
+          <div class="col flex-3">
+            <div class="row">
+              <h4>TELEFONE</h4>
+            </div>
+            <c:forEach items="${usuarios}" var="usuario">
+              <div class="row">
+                <span>
+                  <c:out value="${usuario.telefone}" /></span>
+                <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="
+                  ${usuario.id}" />" ><i class="fas fa-edit"></i></a>
+                <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="
+                  ${usuario.id}" />" ><i class="fas fa-trash"></i></a>
+              </div>
+            </c:forEach>
+          </div>
+
         </div>
+
         <div>
-            <a href="ListaUsuarioController?acao=emitir">Lista de Usuarios</a>
+          <i class="fad fa-users"></i>
+          <p>Veja todos os usurários cadastrados no sistema.</p>
         </div>
-    </body>
+
+      </section>
+    </c:if>
+  </section>
+</body>
+
 </html>

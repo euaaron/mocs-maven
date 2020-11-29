@@ -26,23 +26,21 @@
     <i class="fad fa-user-plus"></i>
     <h2>Novo Usuário</h2>
   </section>
-  <section>
+  
+  <section id="form">
 
     <form id="incluir" name="frmManterUsuario" method="post" onsubmit="return validarFormulario(this)"
       action="ManterUsuarioController?acao=confirmarOperacao&operacao=${operacao}&agente=${agente}<c:if test=" ${idUser
       !=null && idUser !=0}">&idUser=${idUser}</c:if>">
       <c:if test="${errorMsg != null}">
-        <div class="form-group row">
-          <div class="col">
-            <p class="error">${errorMsg}</p>
-          </div>
-        </div>
+        <p class="error">${errorMsg}</p>
       </c:if>
       <div>
+        
         <label for="nome">Nome
           <div>
             <i class="fas fa-user"></i>
-            <input type="text" name="txtNome" id="nome" maxlength="45" value="${usuario.nome}" <c:if
+            <input type="text" name="txtNome" id="nome" maxlength="28" value="${usuario.nome}" <c:if
               test="${operacao == 'Excluir'}"> readonly</c:if>/>
           </div>
         </label>
