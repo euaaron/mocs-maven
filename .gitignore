@@ -1,2 +1,11 @@
 target/*
+
 nbactions.xml
+
+.settings
+
+.project
+
+.classpath
+
+.factorypath
