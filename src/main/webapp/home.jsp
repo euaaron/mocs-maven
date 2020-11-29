@@ -25,40 +25,42 @@
   </head>
 
   <body>
-    <nav class="top-bar">
-      <div class="total-center">
-        <a class="navbar-brand" href="/mocs">
+
+    <nav>
+      <div>
+        <a href="/SessionController">
           <h1>M<i class="fad fa-egg-fried"></i>CS</h1>
         </a>
       </div>
     </nav>
-    <section class="menu display-flex">
-      <div class="max-width-rel">
-        <a class="menu-item align-content-center justify-content-between" href="PesquisarUsuarioController">
+
+    <section>
+      <div>
+        <a href="PesquisarUsuarioController">
           <i class="fad fa-users"></i>
           <span class="nav-link">Pesquisar Usuários</span>
         </a>
       </div>
-      <div class="max-width-rel">
-        <a class="menu-item align-content-center justify-content-between" href="PesquisarEstabelecimentoController">
+      <div>
+        <a href="PesquisarEstabelecimentoController">
           <i class="fad fa-building"></i>
           <span class="nav-link">Pesquisar Estabelecimentos</span>
         </a>
       </div>
-      <div class="max-width-rel">
-        <a class="menu-item align-content-center justify-content-between" href="PesquisarFuncionarioController">
+      <div>
+        <a href="PesquisarFuncionarioController">
           <i class="fad fa-user-tie"></i>
           <span class="nav-link">Pesquisar Funcionários</span>
         </a>
       </div>
-      <div class="max-width-rel">
-        <a class="menu-item align-content-center justify-content-between" href="PesquisarPratoController">
+      <div>
+        <a href="PesquisarPratoController">
           <i class="fad fa-utensils-alt"></i>
           <span class="nav-link">Pesquisar Pratos</span>
         </a>
       </div>
-      <div class="max-width-rel">
-        <a class="menu-item align-content-center justify-content-between" href="PesquisarComandaController">
+      <div>
+        <a href="PesquisarComandaController">
           <i class="fad fa-ballot"></i>
           <span class="nav-link">Pesquisar Comandas</span>
         </a>
@@ -67,7 +69,7 @@
     </section>
 
     <footer>
-      <a class="menu-item align-content-center justify-content-between"
+      <a
          href="<%=request.getContextPath()%>/SessionController?action=logout">
         <i class="fad fa-portal-exit"></i> Sair
       </a>
