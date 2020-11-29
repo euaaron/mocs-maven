@@ -2,5 +2,7 @@
 @import url('https://pro.fontawesome.com/releases/v5.15.0/css/all.css');
 
 @import url('./css/_variables.css');
+@import url('./css/_animations.css');
 @import url('./css/_global.css');
 @import url('./css/components/all.css');
+@import url('./css/_classes.css');

@@ -62,7 +62,7 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 	<columnHeader>
 		<band height="21">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="9c1c94bf-058c-4645-9df9-449f766acc66">
+				<reportElement mode="Opaque" x="0" y="0" width="200" height="21" forecolor="#000000" backcolor="#E6E6E6" uuid="9c1c94bf-058c-4645-9df9-449f766acc66">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2c499bc-dadb-4960-94e5-00be7d0bb880"/>
 				</reportElement>
 				<box leftPadding="15"/>
@@ -72,7 +72,7 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="4dd2a472-12ff-46d5-bc6a-916824dcac0c">
+				<reportElement mode="Opaque" x="200" y="0" width="220" height="21" forecolor="#000000" backcolor="#E6E6E6" uuid="4dd2a472-12ff-46d5-bc6a-916824dcac0c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="376333aa-c665-43d6-920d-2db334c1f7a0"/>
 				</reportElement>
 				<textElement textAlignment="Left">
@@ -81,9 +81,10 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 				<text><![CDATA[E-mail]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="09361ea5-0682-4e60-82d9-caf89a605752">
+				<reportElement mode="Opaque" x="420" y="0" width="135" height="21" forecolor="#000000" backcolor="#E6E6E6" uuid="09361ea5-0682-4e60-82d9-caf89a605752">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd5fef1e-d5ea-454b-8452-bfa86061d605"/>
 				</reportElement>
+				<box leftPadding="10"/>
 				<textElement textAlignment="Left">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -94,7 +95,7 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 	<detail>
 		<band height="20">
 			<textField textAdjust="StretchHeight">
-				<reportElement x="0" y="0" width="185" height="20" uuid="cc51b571-b2b2-4d3b-9341-9c890fb299a8">
+				<reportElement x="0" y="0" width="200" height="20" uuid="cc51b571-b2b2-4d3b-9341-9c890fb299a8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2c499bc-dadb-4960-94e5-00be7d0bb880"/>
 				</reportElement>
 				<box leftPadding="15"/>
@@ -104,7 +105,7 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="185" y="0" width="185" height="20" uuid="627d5fe1-6e5e-4dc0-944a-d70bed41bab8">
+				<reportElement x="200" y="0" width="220" height="20" uuid="627d5fe1-6e5e-4dc0-944a-d70bed41bab8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="376333aa-c665-43d6-920d-2db334c1f7a0"/>
 				</reportElement>
 				<textElement>
@@ -113,9 +114,10 @@ FROM heroku_e1fb7268a5ce6ae.usuario]]>
 				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="370" y="0" width="185" height="20" uuid="ec009663-8dce-4f86-8d2b-9261336564c3">
+				<reportElement x="420" y="0" width="135" height="20" uuid="ec009663-8dce-4f86-8d2b-9261336564c3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd5fef1e-d5ea-454b-8452-bfa86061d605"/>
 				</reportElement>
+				<box leftPadding="10"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>

@@ -57,7 +57,6 @@
       </div>
     </form>
   </section>
-  </script>
 </body>
 
 </html>

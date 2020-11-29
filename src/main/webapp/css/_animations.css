@@ -1,0 +1,22 @@
+@keyframes fade-in {
+  0%   {opacity: 25%;}
+  25%  {opacity: 50%;}
+  50%  {opacity: 75%;}
+  100% {opacity: 100%;}
+}
+
+a,
+div,
+section,
+aside,
+header,
+nav,
+span,
+p,
+h1,
+h2,h3,
+h4,
+button {
+  animation-name: fade-in;
+  animation-duration: 2s;
+}

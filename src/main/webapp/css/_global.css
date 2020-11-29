@@ -28,22 +28,13 @@ html,body,div {
 }
 
 body {
-  flex-direction: row;
+  flex-direction: column;
   background-color: var(--primary);
   width: 100vw;
   height: 100vh;
 }
 
-a:hover,
-button:hover {
-  cursor: pointer;
+h1 {
+  color: var(--light);
 }
 
-a:focus,
-a:hover {
-  color: var(--highlight);
-}
-
-.error {
-  color: var(--alert);
-}
