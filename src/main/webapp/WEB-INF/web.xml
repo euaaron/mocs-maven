@@ -12,6 +12,22 @@
         <servlet-name>PesquisarEstabelecimentoController</servlet-name>
         <servlet-class>com.debron.mocs.controller.PesquisarEstabelecimentoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaFuncionarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ListaFuncionarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisarFuncionarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.PesquisarFuncionarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterFuncionarioController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ManterFuncionarioController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListaFuncionarioPestabelecimentoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ListaFuncionarioPestabelecimentoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaUsuarioController</servlet-name>
         <url-pattern>/ListaUsuarioController</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>PesquisarEstabelecimentoController</servlet-name>
         <url-pattern>/PesquisarEstabelecimentoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaFuncionarioController</servlet-name>
+        <url-pattern>/ListaFuncionarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisarFuncionarioController</servlet-name>
+        <url-pattern>/PesquisarFuncionarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterFuncionarioController</servlet-name>
+        <url-pattern>/ManterFuncionarioController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaFuncionarioPestabelecimentoController</servlet-name>
+        <url-pattern>/ListaFuncionarioPestabelecimentoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

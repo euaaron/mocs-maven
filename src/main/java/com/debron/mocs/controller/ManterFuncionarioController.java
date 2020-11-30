@@ -5,8 +5,12 @@
  */
 package com.debron.mocs.controller;
 
+import com.debron.mocs.dao.EnderecoDAO;
 import com.debron.mocs.dao.EstabelecimentoDAO;
-import com.debron.mocs.model.Estabelecimento;
+import com.debron.mocs.dao.FuncionarioDAO;
+import com.debron.mocs.dao.UsuarioDAO;
+import com.debron.mocs.model.Funcionario;
+import com.debron.mocs.model.Usuario;
 import com.debron.mocs.utils.Crypto;
 import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
@@ -18,8 +22,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +34,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
- * @author euaar & Débora
+ * @author Débora
  */
-public class ManterEstabelecimentoController extends HttpServlet {
+public class ManterFuncionarioController extends HttpServlet {
+
   private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
 
   /**
@@ -45,7 +48,7 @@ public class ManterEstabelecimentoController extends HttpServlet {
    * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException,
@@ -57,8 +60,8 @@ public class ManterEstabelecimentoController extends HttpServlet {
       case "prepararOperacao":
         prepararOperacao(req, res);
         break;
-      case "manterEndereco":
-        manterEndereco(req, res);
+      case "emitirRelatorio":
+        emitirRelatorio(req, res);
         break;
       default:
         confirmarOperacao(req, res);
@@ -66,11 +69,29 @@ public class ManterEstabelecimentoController extends HttpServlet {
     }
   }
 
-  public void manterEndereco(HttpServletRequest req, HttpServletResponse res)
+  public void emitirRelatorio(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
-    
-    System.out.println("Deu");
-    
+    Connection conexao = null;
+    try {
+      Date date = new Date();
+      String nomeRelatorio = "Relatorio_" + dateFormat.format(date) + ".pdf";
+
+      HashMap parametros = new HashMap();
+      parametros.put(
+              "funcionario_id",
+              Integer.parseInt(req.getParameter("txtFuncionarioId")));
+      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/Relatorio.jasper";
+      JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros,
+              conexao);
+      byte[] relat = JasperExportManager.exportReportToPdf(jp);
+
+      res.setHeader("Content-Disposition",
+              "attachment;filename=" + nomeRelatorio);
+      res.setContentType("application/pdf");
+      res.getOutputStream().write(relat);
+    } catch (JRException | IOException ex) {
+      throw new ServletException(ex);
+    }
   }
 
   public void prepararOperacao(HttpServletRequest req, HttpServletResponse res)
@@ -79,12 +100,12 @@ public class ManterEstabelecimentoController extends HttpServlet {
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
-        String idEstabelecimento = req.getParameter("id");
-        Estabelecimento estabelecimento = EstabelecimentoDAO.getInstancia().findById(idEstabelecimento);
-        req.setAttribute("estabelecimento", estabelecimento);
+        String idFuncionario = req.getParameter("id");
+        Funcionario funcionario = FuncionarioDAO.getInstancia().findById(idFuncionario);
+        req.setAttribute("funcionario", funcionario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "/pages/cadastrar/cadastrarEstabelecimento.jsp");
+              "/pages/cadastrar/cadastrarFuncionario.jsp");
       view.forward(req, res);
     } catch (ServletException e) {
       throw e;
@@ -98,61 +119,59 @@ public class ManterEstabelecimentoController extends HttpServlet {
     String operacao = req.getParameter("operacao");
     String errorMsg;
 
+    String idFuncionario = req.getParameter("txtIdFuncionario");
     String idEstabelecimento = req.getParameter("txtIdEstabelecimento");
-    String cnpj = req.getParameter("txtCNPJ");
-    String inscEstadual = req.getParameter("txtInscEstadual");
-    String nomeFantasia = req.getParameter("txtNomeFantasia");
-    String telefone = req.getParameter("txtTelefone");
+    String idUsuario = req.getParameter("txtIdUsuario");
+    int nivelPermissao = Integer.parseInt(req.getParameter("txtnivelPermissao"));
+    boolean statusConta = Boolean.parseBoolean(req.getParameter("txtStatusConta"));
 
     try {
       if (operacao.equalsIgnoreCase("excluir")) {
-        EstabelecimentoDAO.getInstancia().remove(idEstabelecimento);
+        FuncionarioDAO.getInstancia().remove(idFuncionario);
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
-        
-        Estabelecimento estabelecimento = new Estabelecimento();
-        estabelecimento.setId(RandomID.generate());
-        estabelecimento.setNomeFantasia(nomeFantasia);
-        estabelecimento.setCnpj(cnpj);
-        estabelecimento.setInscEstadual(inscEstadual);
-        estabelecimento.setTelefone(telefone);
-        estabelecimento.setCreatedAt(hoje);
-        estabelecimento.setUpdatedAt(hoje);
 
-        EstabelecimentoDAO.getInstancia().save(estabelecimento);
+        Funcionario funcionario = new Funcionario();
+        funcionario.setId(RandomID.generate());
+        funcionario.setNivelPermissao(nivelPermissao);
+        funcionario.setStatusConta(statusConta);
+        funcionario.setEstabelecimento(
+                EstabelecimentoDAO.getInstancia()
+                        .findById(idEstabelecimento)
+        );
+        funcionario.setUsuario(UsuarioDAO.getInstancia()
+                .findById(idUsuario));
+        funcionario.setCreatedAt(hoje);
+        funcionario.setUpdatedAt(hoje);
+
+        FuncionarioDAO.getInstancia().save(funcionario);
 
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
 
-        Estabelecimento estabelecimento = EstabelecimentoDAO.getInstancia().findById(idEstabelecimento);
-        
-        estabelecimento.setNomeFantasia(nomeFantasia);
-        estabelecimento.setCnpj(cnpj);
-        estabelecimento.setInscEstadual(inscEstadual);
-        estabelecimento.setTelefone(telefone);
-        estabelecimento.setCreatedAt(hoje);
-        estabelecimento.setUpdatedAt(hoje);
-        
-        EstabelecimentoDAO.getInstancia().save(estabelecimento);
+        Funcionario funcionario = FuncionarioDAO.getInstancia().findById(idFuncionario);
+        funcionario.setNivelPermissao(nivelPermissao);
+        funcionario.setStatusConta(statusConta);
+        funcionario.setUpdatedAt(hoje);
+        FuncionarioDAO.getInstancia().save(funcionario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "PesquisarEstabelecimentoController");
+              "PesquisarFuncionarioController");
       view.forward(req, res);
     } catch (IOException | NoSuchAlgorithmException e) {
       throw new ServletException(e);
-    } 
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>GET</code> method.
    *
-   * @param request  servlet request
+   * @param request servlet request
    * @param response servlet response
-   *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -167,11 +186,10 @@ public class ManterEstabelecimentoController extends HttpServlet {
   /**
    * Handles the HTTP <code>POST</code> method.
    *
-   * @param request  servlet request
+   * @param request servlet request
    * @param response servlet response
-   *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res)
