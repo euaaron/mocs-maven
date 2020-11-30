@@ -10,7 +10,7 @@
 
 ## Preview
 
-A versão mais recente deste projeto está disponível para testes em [mocs.euaaron.codes](https://mocs.euaaron.codes).
+A versão mais recente deste projeto sempre estará disponível para testes em [mocs.euaaron.codes](https://mocs.euaaron.codes).
 
 ## Sobre
 
@@ -22,7 +22,7 @@ Todo usuário pode cadastrar um estabelecimento e vincular usuários à este est
 
 O usuário que cadastra um estabelecimento, automáticamente é adicionado à lista de funcionários, com o nível de permissão 0 (nível dado à funcionários com cargos administrativos máximo).
 
-> MOCS foi inicialmente desenvolvido para a disciplina de LPII (**Linguagem de Programação 2**) em 2019. Apesar d**o foco da disciplina ser o back-end**, seu front-end foi inicialmente desenvolvido como trabalho da disciplina de Desenvolvimento Web. Em 2020, durante a disciplina de LPIII recriamos o projeto utilizando adotando o Maven e ~~descartamos a utilização do **Bootstrap 4.0**~~. A [versão antiga pode ser encontrada aqui](https://github.com/euaaron/MOCS).
+> MOCS foi inicialmente desenvolvido para a disciplina de LPII (**Linguagem de Programação 2**) em 2019. Apesar d**o foco da disciplina ser o back-end**, seu front-end foi inicialmente desenvolvido como trabalho da disciplina de Desenvolvimento Web. Em 2020, durante a disciplina de LPIII (**Linguagem de Programação 3**) recriamos o projeto utilizando o Maven e também ~~descartamos a utilização do **Bootstrap 4.0**~~. A [versão antiga pode ser encontrada aqui](https://github.com/euaaron/MOCS).
 
 ## Níveis de Permissão
 
