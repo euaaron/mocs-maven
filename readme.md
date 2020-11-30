@@ -1,12 +1,16 @@
+`java 8` `jdk` `maven` `persistence` `eclipselink` `jasperreports` `html5` `css3` `js` `jbcrypt` `mysql` `heroku`
+
 [![MOCS](./header.svg)](https://mocs.euaaron.codes/)
 
 ## Index
 1. [Preview](#preview)
 2. [Sobre](#sobre)
-3. [Níveis de Permissão](#níveis-de-permissão)
-4. [Como usar o projeto](#como-usar-o-projeto)
-5. [Como contribuir](#como-contribuir)
-6. [Desenvolvedores](#desenvolvedores)
+3. [Ferramentas](#ferramentas)
+4. [Níveis de Permissão](#níveis-de-permissão)
+5. [Como usar o projeto](#como-usar-o-projeto)
+6. [To do](#to-do)
+7. [Como contribuir](#como-contribuir)
+8. [Desenvolvedores](#desenvolvedores)
 
 ## Preview
 
@@ -22,7 +26,23 @@ Todo usuário pode cadastrar um estabelecimento e vincular usuários à este est
 
 O usuário que cadastra um estabelecimento, automáticamente é adicionado à lista de funcionários, com o nível de permissão 0 (nível dado à funcionários com cargos administrativos máximo).
 
-> MOCS foi inicialmente desenvolvido para a disciplina de LPII (**Linguagem de Programação 2**) em 2019. Apesar d**o foco da disciplina ser o back-end**, seu front-end foi inicialmente desenvolvido como trabalho da disciplina de Desenvolvimento Web. Em 2020, durante a disciplina de LPIII (**Linguagem de Programação 3**) recriamos o projeto utilizando o Maven e também ~~descartamos a utilização do **Bootstrap 4.0**~~. A [versão antiga pode ser encontrada aqui](https://github.com/euaaron/MOCS).
+MOCS foi inicialmente desenvolvido para a disciplina de LPII (**Linguagem de Programação 2**) em 2019. Apesar d**o foco da disciplina ser o back-end**, seu front-end foi inicialmente desenvolvido como trabalho da disciplina de Desenvolvimento Web. Essa [versão de 2019 pode ser encontrada aqui](https://github.com/euaaron/MOCS).
+
+Em 2020, durante a disciplina de LPIII (**Linguagem de Programação 3**) recriamos a estrutura do projeto adicionando o Maven, e a camada DAO, adicionando persistência com o **eclipse link**. Também alteramos os IDs numéricos para UUID e adicionamos criptografia na senha do usuário, além disso ~~descartamos a utilização do **Bootstrap 4.0**~~ e demos uma reisada na lógica do sistema. 
+
+Revisar a lógica trouxe um significado à mais para o projeto, nos possibilitando entender de verdade o que nós queriamos fazer e como fazer. Com isso, nos livramos da classe `Função`, que nem estava sendo usada, e no lugar adicionamos aos funcionários o que chamamos hoje **Nível de Permissão**.
+
+## Ferramentas
+
+Abaixo a lista das ferramentas utilizadas neste projeto:
+
+- Java JDK-8 (1.8)
+- Apache Tomcat 8.0.15
+- Netbeans 12.1
+- Visual Studio Code (para melhorar a produtividade ao desenvolver o front-end)
+- Figma.com (para prototipar as páginas)
+- Insomnia Core (para testar requisições do tipo GET e POST rapidamente)
+- as demais ferramentas e suas versões estão especificadas no arquivo `pom.xml`;
 
 ## Níveis de Permissão
 
@@ -79,6 +99,10 @@ git clone https://github.com/euaaron/mocs-maven.git
 ```sh
 java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port 80 target/*.war
 ```
+
+## To Do
+
+- veja a [lista de à fazeres aqui](https://github.com/euaaron/mocs-maven/issues).
 
 ## Como contribuir?
 
