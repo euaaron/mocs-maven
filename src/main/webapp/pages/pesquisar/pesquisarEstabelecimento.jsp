@@ -34,7 +34,7 @@
         </ul>
         <div class="container">
             <h1 class="page-title">Pesquisar Estabelecimentos</h1>
-            <a href="ListaEstabelecimentoPUsuarioController?acao=filtrar">Lista de Estabelecimentos por Usuário</a>
+            <a href="ListaEstabelecimentoController?acao=emitir" title="Salvar em PDF"><i class="fad fa-print"></i></a>
             <div class="max-width-rel">
                 <form class="max-width-rel total-center" action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Incluir" method="post">
                     <button class="btn btn-primary margin-1" type="submit" name="btnIncluir"><i class="fas fa-plus"></i> Incluir Estabelecimento</button>

@@ -35,8 +35,8 @@
         </ul>
         <div class="container-fluid">
         <h1>Pesquisar Pratos</h1>
-        <a href="ListaPratosController?acao=emitir">Lista de Pratos</a></br>
-        <a href="ListaPratosPEstabelecimentoController?acao=filtrar">Lista de Pratos por Estabelecimento</a>
+        <a href="ListaPratoController?acao=emitir">Lista de Pratos</a></br>
+        <a href="ListaPratoPestabelecimentoController?acao=filtrar">Lista de Pratos por Estabelecimento</a>
         <div class="max-width-rel total-center margin-1">
             <form action="ManterPratoController?acao=prepararOperacao&operacao=Incluir" method="post">
                 <button class="btn btn-primary btn-lg" type="submit" name="btnIncluir">Novo Prato</button>
