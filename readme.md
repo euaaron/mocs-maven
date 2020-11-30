@@ -6,7 +6,7 @@
 3. [Níveis de Permissão](#níveis-de-permissão)
 4. [Como usar o projeto](#como-usar-o-projeto)
 5. [Como contribuir](#como-contribuir)
-6. [Colaboradores](#colaboradores)
+6. [Desenvolvedores](#desenvolvedores)
 
 ## Preview
 
@@ -87,7 +87,7 @@ java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port 80 target/*.war
 
 > Este é um projeto acadêmico, não tenha medo de falhar ou de não saber. Colabore para treinar e evoluir com seus erros!
 
-## Colaboradores
+## Desenvolvedores
 
 <a href="https://github.com/euaaron" title="@euaaron - Aaron  Stiebler"><img src="https://github.com/euaaron.png" height="auto" width="64" style="border-radius:50%"></a>
 <a href="https://github.com/deboralili" title="@deboralili - Debora Lessa"><img src="https://github.com/deboralili.png" height="auto" width="64" style="border-radius:50%"></a>
