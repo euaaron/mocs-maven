@@ -55,37 +55,9 @@ public class ManterUsuarioController extends HttpServlet {
       case "prepararOperacao":
         prepararOperacao(req, res);
         break;
-      case "emitirRelatorio":
-        emitirRelatorio(req, res);
-        break;
       default:
         confirmarOperacao(req, res);
         break;
-    }
-  }
-
-  public void emitirRelatorio(HttpServletRequest req, HttpServletResponse res)
-          throws ServletException, IOException {
-    Connection conexao = null;
-    try {
-      Date date = new Date();
-      String nomeRelatorio = "Relatorio_" + dateFormat.format(date) + ".pdf";
-
-      HashMap parametros = new HashMap();
-      parametros.put(
-              "usuario_id", 
-              Integer.parseInt(req.getParameter("txtUsuarioId")));
-      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/Relatorio.jasper";
-      JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros,
-              conexao);
-      byte[] relat = JasperExportManager.exportReportToPdf(jp);
-
-      res.setHeader("Content-Disposition",
-              "attachment;filename=" + nomeRelatorio);
-      res.setContentType("application/pdf");
-      res.getOutputStream().write(relat);
-    } catch (JRException | IOException ex) {
-      throw new ServletException(ex);
     }
   }
 

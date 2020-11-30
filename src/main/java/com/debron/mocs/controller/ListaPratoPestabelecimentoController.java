@@ -6,7 +6,7 @@
 package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.DAO;
-import com.debron.mocs.dao.FuncionarioDAO;
+import com.debron.mocs.dao.PratoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ import net.sf.jasperreports.engine.JasperPrint;
  *
  * @author Débora & Aaron
  */
-public class ListaFuncionarioPestabelecimentoController extends HttpServlet {
+public class ListaPratoPestabelecimentoController extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -45,26 +45,28 @@ public class ListaFuncionarioPestabelecimentoController extends HttpServlet {
 
   public void filtrar(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    request.setAttribute("funcionarios", FuncionarioDAO.getInstancia().findAll());
+    request.setAttribute("pratos", PratoDAO.getInstancia().findAll());
     RequestDispatcher view
-            = request.getRequestDispatcher("/listaFuncionarioPestabelecimento.jsp");
+            = request.getRequestDispatcher("/listaPratoPestabelecimento.jsp");
     view.forward(request, response);
   }
 
   public void emitir(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    
     Connection conexao = null;
+    
     try {
       DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy_HHmmss");
       Date date = new Date();
-      String nomeRelatorio = "ListaFuncionarioPestabelecimento_" + dateFormat.format(date) + ".pdf";
+      String nomeRelatorio = "ListaPratoPestabelecimento_" + dateFormat.format(date) + ".pdf";
 
       conexao = DAO.getConexao();
 
       HashMap parametros = new HashMap();
 
       parametros.put("P_ID_ESTABELECIMENTO", request.getParameter("txtIdEstabelecimento"));
-      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaFuncionarioPestabelecimento.jasper";
+      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaPratoPestabelecimento.jasper";
       JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
       byte[] relat = JasperExportManager.exportReportToPdf(jp);
       response.setHeader("Content-Disposition", "attachment;filename=" + nomeRelatorio);

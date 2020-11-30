@@ -5,12 +5,9 @@
  */
 package com.debron.mocs.controller;
 
-import com.debron.mocs.dao.EnderecoDAO;
 import com.debron.mocs.dao.EstabelecimentoDAO;
-import com.debron.mocs.dao.FuncionarioDAO;
-import com.debron.mocs.dao.UsuarioDAO;
-import com.debron.mocs.model.Funcionario;
-import com.debron.mocs.model.Usuario;
+import com.debron.mocs.dao.PratoDAO;
+import com.debron.mocs.model.Prato;
 import com.debron.mocs.utils.Crypto;
 import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
@@ -36,7 +33,7 @@ import net.sf.jasperreports.engine.JasperPrint;
  *
  * @author Débora
  */
-public class ManterFuncionarioController extends HttpServlet {
+public class ManterPratoController extends HttpServlet {
 
   private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
 
@@ -72,12 +69,12 @@ public class ManterFuncionarioController extends HttpServlet {
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
-        String idFuncionario = req.getParameter("id");
-        Funcionario funcionario = FuncionarioDAO.getInstancia().findById(idFuncionario);
-        req.setAttribute("funcionario", funcionario);
+        String idPrato = req.getParameter("id");
+        Prato prato = PratoDAO.getInstancia().findById(idPrato);
+        req.setAttribute("prato", prato);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "/pages/cadastrar/cadastrarFuncionario.jsp");
+              "/pages/cadastrar/cadastrarPrato.jsp");
       view.forward(req, res);
     } catch (ServletException e) {
       throw e;
@@ -91,45 +88,49 @@ public class ManterFuncionarioController extends HttpServlet {
     String operacao = req.getParameter("operacao");
     String errorMsg;
 
-    String idFuncionario = req.getParameter("txtIdFuncionario");
+    String idPrato = req.getParameter("txtIdPrato");
     String idEstabelecimento = req.getParameter("txtIdEstabelecimento");
-    String idUsuario = req.getParameter("txtIdUsuario");
-    int nivelPermissao = Integer.parseInt(req.getParameter("txtnivelPermissao"));
-    boolean statusConta = Boolean.parseBoolean(req.getParameter("txtStatusConta"));
+    String nome = req.getParameter("txtNome");
+    String descricao = req.getParameter("txtDescricao");
+    int exibir = Integer.parseInt(req.getParameter("txtExibir"));
+    String imgUrl = req.getParameter("txtImgUrl");
+    float preco = Float.parseFloat(req.getParameter("txtPreco"));
 
     try {
       if (operacao.equalsIgnoreCase("excluir")) {
-        FuncionarioDAO.getInstancia().remove(idFuncionario);
+        PratoDAO.getInstancia().remove(idPrato);
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
 
-        Funcionario funcionario = new Funcionario();
-        funcionario.setId(RandomID.generate());
-        funcionario.setNivelPermissao(nivelPermissao);
-        funcionario.setStatusConta(statusConta);
-        funcionario.setEstabelecimento(
-                EstabelecimentoDAO.getInstancia()
-                        .findById(idEstabelecimento)
-        );
-        funcionario.setUsuario(UsuarioDAO.getInstancia()
-                .findById(idUsuario));
-        funcionario.setCreatedAt(hoje);
-        funcionario.setUpdatedAt(hoje);
+        Prato prato = new Prato();
+        prato.setId(RandomID.generate());
+        prato.setEstabelecimento(EstabelecimentoDAO
+                .getInstancia().findById(idEstabelecimento));
+        prato.setNome(nome);
+        prato.setDescricao(descricao);
+        prato.setExibir(exibir);
+        prato.setImagemUrl(imgUrl);
+        prato.setPreco(preco);
+        prato.setCreatedAt(hoje);
+        prato.setUpdatedAt(hoje);
 
-        FuncionarioDAO.getInstancia().save(funcionario);
+        PratoDAO.getInstancia().save(prato);
 
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
 
-        Funcionario funcionario = FuncionarioDAO.getInstancia().findById(idFuncionario);
-        funcionario.setNivelPermissao(nivelPermissao);
-        funcionario.setStatusConta(statusConta);
-        funcionario.setUpdatedAt(hoje);
-        FuncionarioDAO.getInstancia().save(funcionario);
+        Prato prato = PratoDAO.getInstancia().findById(idPrato);
+        prato.setNome(nome);
+        prato.setDescricao(descricao);
+        prato.setExibir(exibir);
+        prato.setImagemUrl(imgUrl);
+        prato.setPreco(preco);
+        prato.setUpdatedAt(hoje);
+        PratoDAO.getInstancia().save(prato);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "PesquisarFuncionarioController");
+              "PesquisarPratoController");
       view.forward(req, res);
     } catch (IOException | NoSuchAlgorithmException e) {
       throw new ServletException(e);

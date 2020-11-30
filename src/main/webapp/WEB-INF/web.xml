@@ -28,6 +28,22 @@
         <servlet-name>ListaFuncionarioPestabelecimentoController</servlet-name>
         <servlet-class>com.debron.mocs.controller.ListaFuncionarioPestabelecimentoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaPratoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ListaPratoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListaPratoPestabelecimentoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ListaPratoPestabelecimentoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PesquisarPratoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.PesquisarPratoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManterPratoController</servlet-name>
+        <servlet-class>com.debron.mocs.controller.ManterPratoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaUsuarioController</servlet-name>
         <url-pattern>/ListaUsuarioController</url-pattern>
@@ -55,6 +71,22 @@
     <servlet-mapping>
         <servlet-name>ListaFuncionarioPestabelecimentoController</servlet-name>
         <url-pattern>/ListaFuncionarioPestabelecimentoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaPratoController</servlet-name>
+        <url-pattern>/ListaPratoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaPratoPestabelecimentoController</servlet-name>
+        <url-pattern>/ListaPratoPestabelecimentoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PesquisarPratoController</servlet-name>
+        <url-pattern>/PesquisarPratoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManterPratoController</servlet-name>
+        <url-pattern>/ManterPratoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

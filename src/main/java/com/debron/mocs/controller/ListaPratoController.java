@@ -6,7 +6,6 @@
 package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.DAO;
-import com.debron.mocs.dao.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -15,7 +14,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,55 +27,32 @@ import net.sf.jasperreports.engine.JasperPrint;
  *
  * @author Débora & Aaron
  */
-public class ListaFuncionarioPestabelecimentoController extends HttpServlet {
+public class ListaPratoController extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String acao = request.getParameter("acao");
-    if (acao.equals("filtrar")) {
-      filtrar(request, response);
-    } else {
-      if (acao.equals("emitir")) {
-        emitir(request, response);
-      }
-    }
-  }
 
-  public void filtrar(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    request.setAttribute("funcionarios", FuncionarioDAO.getInstancia().findAll());
-    RequestDispatcher view
-            = request.getRequestDispatcher("/listaFuncionarioPestabelecimento.jsp");
-    view.forward(request, response);
-  }
-
-  public void emitir(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
     Connection conexao = null;
     try {
-      DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy_HHmmss");
+      DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss");
       Date date = new Date();
-      String nomeRelatorio = "ListaFuncionarioPestabelecimento_" + dateFormat.format(date) + ".pdf";
+      String nomeRelatorio = "ListaPrato_" + dateFormat.format(date) + ".pdf";
 
       conexao = DAO.getConexao();
 
       HashMap parametros = new HashMap();
 
-      parametros.put("P_ID_ESTABELECIMENTO", request.getParameter("txtIdEstabelecimento"));
-      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaFuncionarioPestabelecimento.jasper";
+      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaPrato.jasper";
       JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
+      
       byte[] relat = JasperExportManager.exportReportToPdf(jp);
+      
       response.setHeader("Content-Disposition", "attachment;filename=" + nomeRelatorio);
       response.setContentType("application/pdf");
       response.getOutputStream().write(relat);
-    } catch (SQLException ex) {
-      ex.printStackTrace();
-    } catch (ClassNotFoundException ex) {
-      ex.printStackTrace();
-    } catch (JRException ex) {
-      ex.printStackTrace();
-    } catch (IOException ex) {
-      ex.printStackTrace();
+      
+    } catch (JRException | ClassNotFoundException | SQLException | IOException ex) {
+      throw new ServletException(ex);
     } finally {
       try {
         DAO.fecharConexao(conexao, null);
