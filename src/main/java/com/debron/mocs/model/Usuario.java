@@ -28,9 +28,9 @@ public class Usuario {
   private String email;
   private String telefone;
   private String senha;
-  
+
   @OneToOne(cascade = CascadeType.ALL)
-  private Endereco EnderecoPadrao;
+  private Endereco enderecoPadrao;
 
   private String createdAt;
   private String updatedAt;
@@ -93,6 +93,14 @@ public class Usuario {
 
   public String getCreatedAt() {
     return createdAt;
+  }
+
+  public Endereco getEnderecoPadrao() {
+    return enderecoPadrao;
+  }
+
+  public void setEnderecoPadrao(Endereco enderecoPadrao) {
+    this.enderecoPadrao = enderecoPadrao;
   }
 
   public void setCreatedAt(String createdAt) {
