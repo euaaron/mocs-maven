@@ -5,28 +5,20 @@
  */
 package com.debron.mocs.controller;
 
-import com.debron.mocs.dao.DAO;
+import com.debron.mocs.dao.FuncionarioDAO;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
  * @author Débora & Aaron
  */
-public class ListaUsuarioController extends HttpServlet {
+public class PesquisarFuncionarioController extends HttpServlet {
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,37 +29,12 @@ public class ListaUsuarioController extends HttpServlet {
    * @throws ServletException if a servlet-specific error occurs
    * @throws IOException if an I/O error occurs
    */
-  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+  protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
-
-    Connection conexao = null;
-    try {
-      DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss");
-      Date date = new Date();
-      String nomeRelatorio = "ListaUsuario_" + dateFormat.format(date) + ".pdf";
-
-      conexao = DAO.getConexao();
-
-      HashMap parametros = new HashMap();
-
-      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaUsuario.jasper";
-      JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
-      
-      byte[] relat = JasperExportManager.exportReportToPdf(jp);
-      
-      response.setHeader("Content-Disposition", "attachment;filename=" + nomeRelatorio);
-      response.setContentType("application/pdf");
-      response.getOutputStream().write(relat);
-      
-    } catch (JRException | ClassNotFoundException | SQLException | IOException ex) {
-      throw new ServletException(ex);
-    } finally {
-      try {
-        DAO.fecharConexao(conexao, null);
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-      }
-    }
+    req.setAttribute("funcionarios", FuncionarioDAO.getInstancia().findAll());
+    RequestDispatcher view = req.getRequestDispatcher(
+            "/pages/pesquisar/pesquisarFuncionario.jsp");
+    view.forward(req, res);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

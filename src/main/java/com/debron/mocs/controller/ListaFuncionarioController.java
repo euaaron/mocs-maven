@@ -7,6 +7,7 @@ package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.DAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -26,7 +27,7 @@ import net.sf.jasperreports.engine.JasperPrint;
  *
  * @author Débora & Aaron
  */
-public class ListaUsuarioController extends HttpServlet {
+public class ListaFuncionarioController extends HttpServlet {
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,13 +45,13 @@ public class ListaUsuarioController extends HttpServlet {
     try {
       DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss");
       Date date = new Date();
-      String nomeRelatorio = "ListaUsuario_" + dateFormat.format(date) + ".pdf";
+      String nomeRelatorio = "ListaFuncionario_" + dateFormat.format(date) + ".pdf";
 
       conexao = DAO.getConexao();
 
       HashMap parametros = new HashMap();
 
-      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaUsuario.jasper";
+      String relatorio = getServletContext().getRealPath("/WEB-INF") + "/ListaFuncionario.jasper";
       JasperPrint jp = JasperFillManager.fillReport(relatorio, parametros, conexao);
       
       byte[] relat = JasperExportManager.exportReportToPdf(jp);

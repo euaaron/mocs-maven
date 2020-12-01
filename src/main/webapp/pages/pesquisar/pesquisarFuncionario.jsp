@@ -32,8 +32,8 @@
             <li>Pesquisar</li>
         </ul>
         <h1>Pesquisar Funcionarios</h1>
-        <a href="ListaFuncionariosPEstabelecimentoController?acao=filtrar">Lista de Funcionarios por Estabelecimento</a></br>
-        <a href="ListaFuncionariosController?acao=emitir">Lista de Funcionarios</a>
+        <a href="ListaFuncionarioPestabelecimentoController?acao=filtrar">Lista de Funcionarios por Estabelecimento</a></br>
+        <a href="ListaFuncionarioController?acao=emitir">Lista de Funcionarios</a>
         <table border = 1>
             <tr>
                 <th>COD</th>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : listaPratosPEstabelecimento
-    Created on : 15/10/2020, 17:22:17
-    Author     : Débora
+    Document   : listaFuncionarioPestabelecimento
+    Created on : 30/11/2020, 16:40:30
+    Author     : Débora & Aaron
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,12 +12,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista de Pratos por Estabelecimento</title>
+        <title>Lista de Funcionarios por Estabelecimento</title>
     </head>
     <body>
-        <h1>Lista de Pratos por Estabelecimento</h1>
-        <form action="ListaPratosPEstabelecimentoController?acao=emitir" method="post">
-            Escolha o Estabelecimento
+        <h1>Lista de Funcionarios por Estabelecimento</h1>
+        <form action="ListaFuncionarioPestabelecimentoController?acao=emitir" method="post">
+            Escolha o estabelecimento
             <select name="txtIdEstabelecimento">
                 <c:forEach items="${estabelecimentos}" var="estabelecimento">
                     <option value="${estabelecimento.id}">${estabelecimento.nomeFantasia}</option>  
