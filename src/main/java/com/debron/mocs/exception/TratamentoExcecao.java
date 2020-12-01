@@ -5,7 +5,6 @@
 package com.debron.mocs.exception;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Aaron
  */
 public class TratamentoExcecao extends HttpServlet {
-
+    private static final long serialVersionUID = 1L;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,24 +28,27 @@ public class TratamentoExcecao extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Exception excecao = (Exception) request.getAttribute("javax.servlet.error.exception");
+
+        Throwable excecao = (Throwable) request.getAttribute("javax.servlet.error.exception");
         Integer codigoStatus = (Integer) request.getAttribute("javax.servlet.error.status_code");
         String nomeServlet = (String) request.getAttribute("javax.servlet.error.servlet_name");
-        String uriAnterior = request.getRequestURI();
-        if (excecao != null) {
-            request.setAttribute("excecao", excecao);
+        String uriDestino = (String) request.getAttribute("javax.servlet.error.request_uri");
+        
+        if (nomeServlet == null) {
+          nomeServlet = "Desconhecido";  
+        } 
+        
+        if (uriDestino == null) {
+            uriDestino = "Desconhecido";
         }
-        if (nomeServlet != null) {
-            request.setAttribute("nomeServlet", nomeServlet);
-        }
-        if (codigoStatus != null) {
-            request.setAttribute("codigoStatus", codigoStatus);
-        }
-
-        request.setAttribute("uriAnterior", uriAnterior);
+        
+        request.setAttribute("excecao", excecao);
+        request.setAttribute("nomeServlet", nomeServlet);
+        request.setAttribute("codigoStatus", codigoStatus);
+        request.setAttribute("uriDestino", uriDestino);
+        
         if (!response.isCommitted()){
-            RequestDispatcher view = request.getRequestDispatcher("error.jsp");
-            view.forward(request, response);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

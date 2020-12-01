@@ -28,7 +28,7 @@
 
     <nav>
       <div>
-        <a href="/SessionController">
+        <a href="/">
           <h1>M<i class="fad fa-egg-fried"></i>CS</h1>
         </a>
       </div>
@@ -69,8 +69,7 @@
     </section>
 
     <footer>
-      <a
-         href="<%=request.getContextPath()%>/SessionController?action=logout">
+      <a href="<%=request.getContextPath()%>/?action=logout">
         <i class="fad fa-portal-exit"></i> Sair
       </a>
     </footer>
