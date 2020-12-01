@@ -11,21 +11,15 @@ import com.debron.mocs.utils.Crypto;
 import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -64,8 +58,10 @@ public class ManterUsuarioController extends HttpServlet {
   public void prepararOperacao(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
     try {
+      String uriAnterior = req.getParameter("page");
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
+      req.setAttribute("uriAnterior", uriAnterior);
       if (!operacao.equalsIgnoreCase("Incluir")) {
         String idUsuario = req.getParameter("id");
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);

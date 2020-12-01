@@ -9,11 +9,30 @@ body > section:first-child {
   background: var(--tertiary);
 }
 
+form {
+  margin-top: 2rem;
+}
+
+form ~ form {
+  margin-top: .6rem;
+}
+
 body > section > h1 {
   color: var(--light);
   align-items: center;
   font-size: 4rem;
   font-weight: 600;
+}
+
+section > h2 ~ p {
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark);
+  padding: .2rem .4rem;
+}
+
+section > h2 ~ p > i {
+  margin-right: .6rem;
 }
 
 button ~ p {

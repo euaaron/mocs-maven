@@ -30,18 +30,29 @@
       <h1>Encontramos um Bug!</h1>
     </section>
     <section>
-      <h3>Informação sobre a exceção</h3>
-      <h5>Código do status:</h5>
-      <code>${codigoStatus}</code>
-      <h5>Nome do servlet:</h5>
-      <code>${nomeServlet}</code>
-      <h5>Tipo de exceção:</h5>
-      <code>${excecao.getClass().getName()}</code>
-      <h5>URI da requisição:</h5>
-      <code>${uriRequisicao}</code>
-      <h5>Mensagem:</h5>
-      <code>${excecao.getMessage()}</code>
-      <a href="${uriAnterior}">Voltar à página anterior</a>.
+      <c:if test="${codigoStatus != 0}">
+        <h5>Código do erro</h5>
+        <code>${codigoStatus}</code>
+      </c:if>
+      <c:if test="${nomeServlet != null}">
+        <h5>Nome do servlet:</h5>
+        <code>${nomeServlet}</code>
+      </c:if>
+      <c:if test="${excecao != null}">
+        <h5>Tipo de exceção:</h5>
+        <code>${excecao.getClass().getName()}</code>
+      </c:if>
+      <c:if test="${uriDestino != null}">
+        <h5>Endereço requisitado</h5>
+        <code>${uriDestino}</code>
+      </c:if>
+      <c:if test="${excecao.getMessage() != null}">
+        <h5>Mensagem:</h5>
+        <code>${excecao.getMessage()}</code>
+      </c:if>
+
+      <a href="/SessionController">Voltar à home</a>.
+          
     </section>
 
   </body>
