@@ -14,33 +14,48 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>MOCS | ${operacao} Usuário</title>
-  
+
   <%-- Estilos e scripts próprios --%>
   <link rel="stylesheet" href="./main.css">
-  <link rel="stylesheet" href="./css/pages/signup.css">
+  <link rel="stylesheet" href="./css/pages/cadastro.css">
   <script src="./js/filtros.js"></script>
 </head>
 
 <body>
+
   <section>
-    <i class="fad fa-user-plus"></i>
-    <h2>Novo Usuário</h2>
+    <c:choose>
+      <c:when test="${operacao.equalsIgnoreCase('editar')}">
+        <i class="fad fa-user-edit"></i>
+        <h2>Editar Usuário</h2>
+      </c:when>
+      <c:when test="${operacao.equalsIgnoreCase('excluir')}">
+        <i class="fad fa-user-times"></i>
+        <h2>Excluir Usuário</h2>
+      </c:when>
+      <c:otherwise>
+        <i class="fad fa-user-plus"></i>
+        <h2>Novo Usuário</h2>
+      </c:otherwise>
+    </c:choose>
   </section>
-  
+
   <section id="form">
 
     <form id="incluir" name="frmManterUsuario" method="post" onsubmit="return validarFormulario(this)"
       action="ManterUsuarioController?acao=confirmarOperacao&operacao=${operacao}&agente=${agente}<c:if test=" ${idUser
       !=null && idUser !=0}">&idUser=${idUser}</c:if>">
-      <c:if test="${errorMsg != null}">
-        <p class="error">${errorMsg}</p>
+      <c:if test="${!errorMsg.isEmpty()}">
+        <c:forEach items="${errorMsg}" var="error">
+          <p class="error">${error}</p>
+        </c:forEach>
       </c:if>
       <div>
-        
+
         <label for="nome">Nome
           <div>
             <i class="fas fa-user"></i>
-            <input type="text" name="txtNome" id="nome" maxlength="28" value="${usuario.nome}" <c:if
+            <input type="text" name="txtNome" id="nome" maxlength="28" value="${usuario.nome}" required <c:if
               test="${operacao == 'Excluir'}"> readonly</c:if>/>
           </div>
         </label>
@@ -49,13 +64,13 @@
           <div>
             <i class="fas fa-id-card"></i>
             <input type="text" onkeyup="filtra('cpf')" name="txtCpf" id="cpf" maxlength="14" value="${usuario.cpf}"
-              <c:if test="${operacao == 'Excluir'}"> readonly</c:if>/>
+            required <c:if test="${operacao == 'Excluir'}"> readonly</c:if>/>
           </div>
         </label>
 
         <label for="dataNascimento">Data de Nascimento
           <div>
-            <input type="date" name="txtDataNascimento" id="dataNascimento" value="${usuario.dataNascimento}" <c:if
+            <input type="date" name="txtDataNascimento" id="dataNascimento" value="${usuario.dataNascimento}" required <c:if
               test="${operacao == 'Excluir'}"> readonly</c:if>/>
           </div>
         </label>
@@ -63,7 +78,7 @@
         <label for="email">Email
           <div>
             <i class="fas fa-envelope"></i>
-            <input type="email" id="email" maxlength="45" name="txtEmail" value="${usuario.email}" <c:if
+            <input type="email" id="email" maxlength="45" name="txtEmail" value="${usuario.email}" required <c:if
               test="${operacao == 'Excluir'}"> readonly</c:if> />
           </div>
         </label>
@@ -75,33 +90,52 @@
               value="${usuario.telefone}" <c:if test="${operacao == 'Excluir'}"> readonly</c:if>/>
           </div>
         </label>
-
-        <label for="senha">Senha
-          <div>
-            <i class="fas fa-key"></i>
-            <input type="password" id="senha" name="txtSenha" minlength="6" maxlength="45" value="${usuario.senha}"
-              <c:if test="${operacao == 'Excluir'}"> readonly
-            </c:if> />
-          </div>
-        </label>
-
-        <label for="confirmaSenha">Repita a senha
-          <div>
-            <i class="fas fa-key"></i>
-            <input type="password" id="confirmaSenha" name="txtReSenha" minlength="6" maxlength="45" value="${usuario.senha}" <c:if test="${operacao == 'Excluir'}"> readonly
-            </c:if> />
-          </div>
-        </label>
+        <c:choose>
+          <c:when test="${operacao.equalsIgnoreCase('editar') || operacao.equalsIgnoreCase('excluir') }">
+            <label for="senha">Senha
+              <div>
+                <i class="fas fa-key"></i>
+                <input type="password" id="senha" name="txtSenha" minlength="6" maxlength="45" required/>
+              </div>
+            </label>
+          </c:when>
+          <c:otherwise>
+            <label for="senha">Senha
+              <div>
+                <i class="fas fa-key"></i>
+                <input type="password" id="senha" name="txtSenha" minlength="6" maxlength="45" required/>
+              </div>
+            </label>
+            <label for="confirmaSenha">Repita a senha
+              <div>
+                <i class="fas fa-key"></i>
+                <input type="password" id="confirmaSenha" name="txtReSenha" minlength="6" maxlength="45" required/>
+              </div>
+            </label>
+          </c:otherwise>
+        </c:choose>
       </div>
 
       <div>
-        <button type="submit" name="btnIncluir" value="Confirmar">Criar conta</button>
+        <c:choose>
+          <c:when test="${operacao.equalsIgnoreCase('editar')}">
+            <input type="hidden" name="txtIdUsuario" value="${usuario.id}">
+            <button type="submit" name="btnIncluir" value="Confirmar">Salvar</button>
+          </c:when>
+          <c:when test="${operacao.equalsIgnoreCase('excluir')}">
+            <input type="hidden" name="txtIdUsuario" value="${usuario.id}">
+            <button type="submit" name="btnIncluir" value="Confirmar">Excluir conta</button>
+          </c:when>
+          <c:otherwise>
+            <button type="submit" name="btnIncluir" value="Confirmar">Criar conta</button>
+          </c:otherwise>
+        </c:choose>
         <a href="${uriAnterior}"><i class="fad fa-chevron-left"></i> Voltar</a>
       </div>
     </form>
 
   </section>
-  
+
 
   <script>
     var hoje = new Date().toLocaleDateString().split("/");
@@ -115,7 +149,7 @@
       var umCaracter;
       for (i = 0; i < valor.length && ehNumero == true; i++) {
         umCaracter = valor.charAt(i);
-        if (caracteresValidos.indexOf(umCaracter) == - 1) {
+        if (caracteresValidos.indexOf(umCaracter) == -1) {
           ehNumero = false;
         }
       }

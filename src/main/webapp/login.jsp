@@ -32,11 +32,13 @@
     </section>
 
     <section id="form">
+
       <i class="fad fa-portal-enter"></i>
       <h2>Entrar</h2>
       <c:if test="${errorMsg != null}">
         <p class="error"><i class="far fa-exclamation-circle"></i> ${errorMsg}</p>
       </c:if>
+
       <form id="login" action="/" name="frmLogin" method="post">
         <div>
 
@@ -56,13 +58,16 @@
 
         </div>
         <div>
+          <input type="hidden" name="page" value="/"/>
           <button type="submit"><i class="fad fa-sign-in"></i> Entre agora</button>
         </div>
       </form>
+
       <form action="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" name="frmSignup" method="post">
         <input type="hidden" name="page" value="/"/>
         <p>ou&nbsp;<a href="#" onclick="$(this).closest('form').submit()">crie uma conta</a>.</p>
       </form>
+
     </section>
   </body>
 

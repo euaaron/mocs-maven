@@ -76,12 +76,11 @@ public class UsuarioDAO {
   public Usuario findByCPF(String cpf) {
     Usuario entity = null;
     EntityManager em = new ConexaoFactory().getConexao();
-    em.setProperty("cpfnum", cpf);
     try {
-      entity = (Usuario) em
-              .createQuery("FROM Usuario u WHERE 'u.CPF' = :cpfnum")
-              .getSingleResult();
-
+      entity = (Usuario) em.createNativeQuery(
+              "SELECT * FROM Usuario u WHERE u.CPF = '" + cpf + "'",
+              Usuario.class
+      ).getSingleResult();
     } catch (Exception e) {
       System.err.println(e);
     } finally {
@@ -93,7 +92,6 @@ public class UsuarioDAO {
   public Usuario findByEmail(String email) {
     EntityManager em = new ConexaoFactory().getConexao();
     Usuario entity = null;
-    em.setProperty("email", email);
     try {
       entity = (Usuario) em.createNativeQuery(
               "SELECT * FROM Usuario u WHERE u.EMAIL = '" + email + "'",
