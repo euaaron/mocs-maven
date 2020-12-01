@@ -104,7 +104,7 @@
                       <c:out value="${estabelecimento.telefone}" />
                     </span>
                     <c:forEach items="${funcionarios}" var="funcionario">
-                      <c:if test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id) && (funcionario.usuario.nivelPermissao.equals(0)||funcionario.usuario.nivelPermissao.equals(5))}">
+                      <c:if test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id) && (funcionario.nivelPermissao.equals(0)||funcionario.nivelPermissao.equals(5))}">
                         <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${estabelecimento.id}" />" method="post">
                           <input type="hidden" name="page" value="/"/>
                           <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
