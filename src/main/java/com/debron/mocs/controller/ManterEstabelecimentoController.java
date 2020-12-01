@@ -5,36 +5,32 @@
  */
 package com.debron.mocs.controller;
 
+import com.debron.mocs.dao.EnderecoDAO;
 import com.debron.mocs.dao.EstabelecimentoDAO;
+import com.debron.mocs.dao.FuncionarioDAO;
+import com.debron.mocs.dao.UsuarioDAO;
+import com.debron.mocs.model.Endereco;
 import com.debron.mocs.model.Estabelecimento;
-import com.debron.mocs.utils.Crypto;
+import com.debron.mocs.model.Funcionario;
 import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
- * @author euaar & Débora
+ * @author Aaron & Débora
  */
 public class ManterEstabelecimentoController extends HttpServlet {
+
   private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
 
   /**
@@ -45,7 +41,7 @@ public class ManterEstabelecimentoController extends HttpServlet {
    * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException,
@@ -68,15 +64,17 @@ public class ManterEstabelecimentoController extends HttpServlet {
 
   public void manterEndereco(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
-    
+
     System.out.println("Deu");
-    
+
   }
 
   public void prepararOperacao(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
     try {
       String operacao = req.getParameter("operacao");
+      String uriAnterior = req.getParameter("page");
+      req.setAttribute("uriAnterior", uriAnterior);
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
         String idEstabelecimento = req.getParameter("id");
@@ -99,19 +97,44 @@ public class ManterEstabelecimentoController extends HttpServlet {
     String errorMsg;
 
     String idEstabelecimento = req.getParameter("txtIdEstabelecimento");
-    String cnpj = req.getParameter("txtCNPJ");
+    String cnpj = req.getParameter("txtCnpj");
     String inscEstadual = req.getParameter("txtInscEstadual");
     String nomeFantasia = req.getParameter("txtNomeFantasia");
     String telefone = req.getParameter("txtTelefone");
+    String proprietario = req.getParameter("txtProprietarioId");
+
+    String cep = req.getParameter("txtCEP");
+    String uf = req.getParameter("txtUF");
+    String cidade = req.getParameter("txtCidade");
+    String bairro = req.getParameter("txtBairro");
+    String rua = req.getParameter("txtLogradouro");
+    String num = req.getParameter("txtEdificio");
+    String complemento = req.getParameter("txtComplemento");
 
     try {
       if (operacao.equalsIgnoreCase("excluir")) {
+        FuncionarioDAO.getInstancia().removeAllFrom(idEstabelecimento);
         EstabelecimentoDAO.getInstancia().remove(idEstabelecimento);
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
-        
+
+        Endereco endereco = new Endereco();
+        endereco.setId(RandomID.generate());
+        endereco.setLogradouro(rua);
+        endereco.setBairro(bairro);
+        endereco.setCep(cep);
+        endereco.setComplemento(complemento);
+        endereco.setCidade(cidade);
+        endereco.setEdificio(num);
+        endereco.setUf(uf);
+        endereco.setCreatedAt(hoje);
+        endereco.setUpdatedAt(hoje);
+
+        EnderecoDAO.getInstancia().save(endereco);
+
         Estabelecimento estabelecimento = new Estabelecimento();
+        estabelecimento.setEndereco(endereco);
         estabelecimento.setId(RandomID.generate());
         estabelecimento.setNomeFantasia(nomeFantasia);
         estabelecimento.setCnpj(cnpj);
@@ -122,18 +145,41 @@ public class ManterEstabelecimentoController extends HttpServlet {
 
         EstabelecimentoDAO.getInstancia().save(estabelecimento);
 
+        Funcionario administrador = new Funcionario();
+        administrador.setCreatedAt(hoje);
+        administrador.setUpdatedAt(hoje);
+        administrador.setNivelPermissao(0);
+        administrador.setStatusConta(Boolean.TRUE);
+        administrador.setEstabelecimento(estabelecimento);
+        administrador.setUsuario(UsuarioDAO.getInstancia().findById(proprietario));
+        
+        FuncionarioDAO.getInstancia().save(administrador);
+
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
 
         Estabelecimento estabelecimento = EstabelecimentoDAO.getInstancia().findById(idEstabelecimento);
-        
+
+        Endereco endereco = estabelecimento.getEndereco();
+
+        endereco.setLogradouro(rua);
+        endereco.setBairro(bairro);
+        endereco.setCep(cep);
+        endereco.setComplemento(complemento);
+        endereco.setCidade(cidade);
+        endereco.setEdificio(num);
+        endereco.setUf(uf);
+        endereco.setUpdatedAt(hoje);
+
+        EnderecoDAO.getInstancia().save(endereco);
+
+        estabelecimento.setEndereco(endereco);
         estabelecimento.setNomeFantasia(nomeFantasia);
         estabelecimento.setCnpj(cnpj);
         estabelecimento.setInscEstadual(inscEstadual);
         estabelecimento.setTelefone(telefone);
-        estabelecimento.setCreatedAt(hoje);
         estabelecimento.setUpdatedAt(hoje);
-        
+
         EstabelecimentoDAO.getInstancia().save(estabelecimento);
       }
       RequestDispatcher view = req.getRequestDispatcher(
@@ -141,18 +187,18 @@ public class ManterEstabelecimentoController extends HttpServlet {
       view.forward(req, res);
     } catch (IOException | NoSuchAlgorithmException e) {
       throw new ServletException(e);
-    } 
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>GET</code> method.
    *
-   * @param request  servlet request
+   * @param request servlet request
    * @param response servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -167,11 +213,11 @@ public class ManterEstabelecimentoController extends HttpServlet {
   /**
    * Handles the HTTP <code>POST</code> method.
    *
-   * @param request  servlet request
+   * @param request servlet request
    * @param response servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res)

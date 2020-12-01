@@ -1,6 +1,6 @@
 button {
   width: 100%;
-  padding: .4rem 0;
+  padding: .4rem .8rem;
   border-radius: 1.2rem;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@ button {
 }
 
 button > i {
-  margin: 0 .8rem;
+  margin: 0 .2rem;
 }
 
 button:focus,

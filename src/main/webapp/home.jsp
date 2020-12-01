@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="./main.css">
     <link rel="stylesheet" href="./css/pages/home.css">
     <script src="./js/filtros.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
 
   </head>
 
@@ -32,7 +36,9 @@
           <h1>M<i class="fad fa-egg-fried"></i>CS</h1>
         </a>
       </div>
+      <h2>Olá ${userSession.nome}!</h2>
     </nav>
+      
 
     <section>
       <div>
