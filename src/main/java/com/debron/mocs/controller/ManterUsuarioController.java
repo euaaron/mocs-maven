@@ -14,7 +14,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +39,7 @@ public class ManterUsuarioController extends HttpServlet {
    * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException,
@@ -80,7 +82,7 @@ public class ManterUsuarioController extends HttpServlet {
   public void confirmarOperacao(HttpServletRequest req, HttpServletResponse res)
           throws SQLException, ClassNotFoundException, ServletException {
     String operacao = req.getParameter("operacao");
-    String errorMsg;
+    List<String> errorMsg = new ArrayList<String>();
 
     String idUsuario = req.getParameter("txtIdUsuario");
     String nome = req.getParameter("txtNome");
@@ -96,7 +98,22 @@ public class ManterUsuarioController extends HttpServlet {
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
-        
+
+        Usuario verificaEmail = UsuarioDAO.getInstancia().findByEmail(email);
+        Usuario verificaCPF = UsuarioDAO.getInstancia().findByCPF(cpf);
+
+        if (verificaEmail != null) {
+          errorMsg.add("E-mail já cadastrado no sistema!");
+        }
+        if (verificaCPF != null) {
+          errorMsg.add("CPF já cadastrado no sistema!");
+        }
+        if (!errorMsg.isEmpty()) {
+          req.setAttribute("errorMsg", errorMsg);
+          req.getRequestDispatcher("/ManterUsuarioController?acao=prepararOperacao&operacao=Incluir").forward(req, res);
+          return;
+        }
+
         Usuario usuario = new Usuario();
         usuario.setId(RandomID.generate());
         usuario.setNome(nome);
@@ -113,7 +130,25 @@ public class ManterUsuarioController extends HttpServlet {
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
 
+        Usuario verificaEmail = UsuarioDAO.getInstancia().findByEmail(email);
+        Usuario verificaCPF = UsuarioDAO.getInstancia().findByCPF(cpf);
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
+        
+        if (verificaEmail != null && verificaEmail.getEmail() != usuario.getEmail()) {
+          errorMsg.add("E-mail já cadastrado no sistema!");
+        }
+        if (verificaCPF != null && verificaCPF.getCpf()!= usuario.getCpf()) {
+          errorMsg.add("CPF já cadastrado no sistema!");
+        }
+        if (!errorMsg.isEmpty()) {
+          req.setAttribute("errorMsg", errorMsg);
+          req.getRequestDispatcher(
+                  "/ManterUsuarioController?acao=prepararOperacao&operacao=Editar&id="
+                  + idUsuario
+          ).forward(req, res);
+          return;
+        }
+
         usuario.setNome(nome);
         usuario.setCpf(cpf);
         usuario.setDataNascimento(dataNascimento);
@@ -121,6 +156,7 @@ public class ManterUsuarioController extends HttpServlet {
         usuario.setTelefone(telefone);
         usuario.setSenha(Crypto.encrypt(senha));
         usuario.setUpdatedAt(hoje);
+
         UsuarioDAO.getInstancia().save(usuario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
@@ -128,7 +164,7 @@ public class ManterUsuarioController extends HttpServlet {
       view.forward(req, res);
     } catch (IOException | NoSuchAlgorithmException e) {
       throw new ServletException(e);
-    } 
+    }
   }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -139,7 +175,7 @@ public class ManterUsuarioController extends HttpServlet {
    * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -154,11 +190,11 @@ public class ManterUsuarioController extends HttpServlet {
   /**
    * Handles the HTTP <code>POST</code> method.
    *
-   * @param req  servlet request
+   * @param req servlet request
    * @param res servlet response
    *
    * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException      if an I/O error occurs
+   * @throws IOException if an I/O error occurs
    */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res)

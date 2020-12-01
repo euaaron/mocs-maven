@@ -51,7 +51,7 @@
         <code>${excecao.getMessage()}</code>
       </c:if>
 
-      <a href="/SessionController">Voltar à home</a>.
+      <a href="/">Voltar à home</a>.
           
     </section>
 
