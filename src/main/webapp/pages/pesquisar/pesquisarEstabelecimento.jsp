@@ -101,23 +101,28 @@
                 <div class="row">
                   <h4>TELEFONE</h4>
                 </div>
+
                 <c:forEach items="${estabelecimentos}" var="estabelecimento">
                   <div class="row">
                     <span>
                       <c:out value="${estabelecimento.telefone}" />
                     </span>
-                    <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${estabelecimento.id}" />" method="post">
-                      <input type="hidden" name="page" value="/"/>
-                      <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                    </form>
-                    <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${estabelecimento.id}" />" method="post">
-                      <input type="hidden" name="page" value="/"/>
-                      <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </form>
+                    <c:forEach items="${funcionarios}" var="funcionario">
+                      <c:if test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
+                        <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${estabelecimento.id}" />" method="post">
+                          <input type="hidden" name="page" value="/"/>
+                          <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                        </form>
+                        <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${estabelecimento.id}" />" method="post">
+                          <input type="hidden" name="page" value="/"/>
+                          <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                        </form>
+                      </c:if>
+                    </c:forEach>
                   </div>
                 </c:forEach>
               </div>
@@ -140,7 +145,7 @@
                   <i class="fas fa-plus"></i> Adicione o seu!
                 </button>
               </form>
-              
+
             </div>
           </c:otherwise>
         </c:choose>
