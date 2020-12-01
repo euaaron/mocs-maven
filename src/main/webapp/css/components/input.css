@@ -1,3 +1,4 @@
+select,
 label {
   width: 100%;
   flex-direction: column;
@@ -6,14 +7,19 @@ label {
   color: var(--tertiary);
 }
 
+select,
 label:focus-within {
   color: var(--light);
 }
 
+select ~ label,
+label ~ select,
+select ~ select,
 label ~ label {
   margin: .6rem 0 0 0;
 }
 
+select,
 label > div {
   background: var(--secondary);
   color: var(--primary);
@@ -32,6 +38,7 @@ label > div:focus-within {
   border: solid .12rem var(--light);
 }
 
+option,
 label > div > input {
   flex:1;
   font-size: 1.02rem;
@@ -41,7 +48,7 @@ label > div > input {
   margin: 0 .4rem;
   color: var(--tertiary);
 }
-
+option,
 label > div > input:focus {
   color: var(--light);
 }

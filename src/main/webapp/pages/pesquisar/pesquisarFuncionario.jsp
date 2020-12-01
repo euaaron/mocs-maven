@@ -115,12 +115,12 @@
                   <span>
                     <c:out value="${funcionario.usuario.nome}" />
                   </span>
-                  <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value='
-                      ${funcionario.id}' />" >
+                  <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${funcionario.id}"
+                      />" >
                       <i class="fad fa-edit"></i>
                     </a>
-                    <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value='
-                      ${funcionario.id}' />" >
+                    <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value=
+                      "${funcionario.id}" />" >
                       <i class="fad fa-trash"></i>
                     </a>
                 </div>
