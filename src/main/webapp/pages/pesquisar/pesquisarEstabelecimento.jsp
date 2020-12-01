@@ -13,11 +13,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>MOCS | Pesquisar Estabelecimentos</title>
-    <%-- Estilos, scripts e dependências de terceiros --%>
-    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css"/>
-    <script src="vendor/jquery-3.3.1.slim.min.js"></script>
-    <script src="vendor/popper.min.js"></script>
-    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+
     <%-- Estilos e scripts próprios --%>
     <link rel="stylesheet" href="./main.css" />
     <link rel="stylesheet" href="./css/pages/pesquisar.css" />
@@ -108,7 +104,7 @@
                       <c:out value="${estabelecimento.telefone}" />
                     </span>
                     <c:forEach items="${funcionarios}" var="funcionario">
-                      <c:if test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
+                      <c:if test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id) && (funcionario.usuario.nivelPermissao.equals(0)||funcionario.usuario.nivelPermissao.equals(5))}">
                         <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${estabelecimento.id}" />" method="post">
                           <input type="hidden" name="page" value="/"/>
                           <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
