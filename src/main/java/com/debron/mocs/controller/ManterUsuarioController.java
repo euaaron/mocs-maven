@@ -47,7 +47,13 @@ public class ManterUsuarioController extends HttpServlet {
           SQLException,
           ClassNotFoundException {
     String acao = req.getParameter("acao");
-    switch (acao) {
+    String uriAnterior = req.getParameter("uriAtual");
+    req.setAttribute("uriAnterior", uriAnterior);
+    
+    
+    
+    if (req.getSession(false) != null) {
+      switch (acao) {
       case "prepararOperacao":
         prepararOperacao(req, res);
         break;
@@ -55,15 +61,18 @@ public class ManterUsuarioController extends HttpServlet {
         confirmarOperacao(req, res);
         break;
     }
+    } else {
+      req.getRequestDispatcher("/").forward(req, res);
+    }
   }
 
   public void prepararOperacao(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
     try {
-      String uriAnterior = req.getParameter("page");
+      req.setCharacterEncoding("utf-8");
       String operacao = req.getParameter("operacao");
       req.setAttribute("operacao", operacao);
-      req.setAttribute("uriAnterior", uriAnterior);
+
       if (!operacao.equalsIgnoreCase("Incluir")) {
         String idUsuario = req.getParameter("id");
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
@@ -82,7 +91,7 @@ public class ManterUsuarioController extends HttpServlet {
   public void confirmarOperacao(HttpServletRequest req, HttpServletResponse res)
           throws SQLException, ClassNotFoundException, ServletException {
     String operacao = req.getParameter("operacao");
-    List<String> errorMsg = new ArrayList<String>();
+    List<String> errorMsg = new ArrayList<>();
 
     String idUsuario = req.getParameter("txtIdUsuario");
     String nome = req.getParameter("txtNome");
@@ -93,6 +102,7 @@ public class ManterUsuarioController extends HttpServlet {
     String senha = req.getParameter("txtSenha");
 
     try {
+      req.setCharacterEncoding("utf-8");
       if (operacao.equalsIgnoreCase("excluir")) {
         UsuarioDAO.getInstancia().remove(idUsuario);
       } else if (operacao.equalsIgnoreCase("incluir")) {
@@ -102,30 +112,36 @@ public class ManterUsuarioController extends HttpServlet {
         Usuario verificaEmail = UsuarioDAO.getInstancia().findByEmail(email);
         Usuario verificaCPF = UsuarioDAO.getInstancia().findByCPF(cpf);
 
+        if (nome == null || cpf == null || dataNascimento == null || email == null || telefone == null || senha == null) {
+          errorMsg.add("Não deixe nenhum campo vazio!");
+        }
+
         if (verificaEmail != null) {
           errorMsg.add("E-mail já cadastrado no sistema!");
         }
+
         if (verificaCPF != null) {
           errorMsg.add("CPF já cadastrado no sistema!");
         }
+
         if (!errorMsg.isEmpty()) {
           req.setAttribute("errorMsg", errorMsg);
           req.getRequestDispatcher("/ManterUsuarioController?acao=prepararOperacao&operacao=Incluir").forward(req, res);
           return;
+        } else {
+          Usuario usuario = new Usuario();
+          usuario.setId(RandomID.generate());
+          usuario.setNome(nome);
+          usuario.setCpf(cpf);
+          usuario.setDataNascimento(dataNascimento);
+          usuario.setEmail(email);
+          usuario.setTelefone(telefone);
+          usuario.setSenha(Crypto.encrypt(senha));
+          usuario.setCreatedAt(hoje);
+          usuario.setUpdatedAt(hoje);
+
+          UsuarioDAO.getInstancia().save(usuario);
         }
-
-        Usuario usuario = new Usuario();
-        usuario.setId(RandomID.generate());
-        usuario.setNome(nome);
-        usuario.setCpf(cpf);
-        usuario.setDataNascimento(dataNascimento);
-        usuario.setEmail(email);
-        usuario.setTelefone(telefone);
-        usuario.setSenha(Crypto.encrypt(senha));
-        usuario.setCreatedAt(hoje);
-        usuario.setUpdatedAt(hoje);
-
-        UsuarioDAO.getInstancia().save(usuario);
 
       } else if (operacao.equalsIgnoreCase("editar")) {
         String hoje = dateFormat.format(new Date());
@@ -133,13 +149,19 @@ public class ManterUsuarioController extends HttpServlet {
         Usuario verificaEmail = UsuarioDAO.getInstancia().findByEmail(email);
         Usuario verificaCPF = UsuarioDAO.getInstancia().findByCPF(cpf);
         Usuario usuario = UsuarioDAO.getInstancia().findById(idUsuario);
-        
-        if (verificaEmail != null && verificaEmail.getEmail() != usuario.getEmail()) {
+
+        if (nome == null || cpf == null || dataNascimento == null || email == null || telefone == null || senha == null) {
+          errorMsg.add("Não deixe nenhum campo vazio!");
+        }
+
+        if (verificaEmail != null && verificaEmail.getEmail().equalsIgnoreCase(usuario.getEmail()) && !usuario.getEmail().equalsIgnoreCase(email)) {
           errorMsg.add("E-mail já cadastrado no sistema!");
         }
-        if (verificaCPF != null && verificaCPF.getCpf()!= usuario.getCpf()) {
+
+        if (verificaCPF != null && verificaCPF.getCpf().equalsIgnoreCase(usuario.getCpf()) && !usuario.getCpf().equalsIgnoreCase(cpf)) {
           errorMsg.add("CPF já cadastrado no sistema!");
         }
+
         if (!errorMsg.isEmpty()) {
           req.setAttribute("errorMsg", errorMsg);
           req.getRequestDispatcher(
@@ -147,17 +169,18 @@ public class ManterUsuarioController extends HttpServlet {
                   + idUsuario
           ).forward(req, res);
           return;
+        } else {
+          usuario.setNome(nome);
+          usuario.setCpf(cpf);
+          usuario.setDataNascimento(dataNascimento);
+          usuario.setEmail(email);
+          usuario.setTelefone(telefone);
+          usuario.setSenha(Crypto.encrypt(senha));
+          usuario.setUpdatedAt(hoje);
+
+          UsuarioDAO.getInstancia().save(usuario);
         }
 
-        usuario.setNome(nome);
-        usuario.setCpf(cpf);
-        usuario.setDataNascimento(dataNascimento);
-        usuario.setEmail(email);
-        usuario.setTelefone(telefone);
-        usuario.setSenha(Crypto.encrypt(senha));
-        usuario.setUpdatedAt(hoje);
-
-        UsuarioDAO.getInstancia().save(usuario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
               "PesquisarUsuarioController");

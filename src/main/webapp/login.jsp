@@ -64,7 +64,7 @@
       </form>
 
       <form action="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" name="frmSignup" method="post">
-        <input type="hidden" name="page" value="/"/>
+        <input type="hidden" name="uriAtual" value="/"/>
         <p>ou&nbsp;<a href="#" onclick="$(this).closest('form').submit()">crie uma conta</a>.</p>
       </form>
 

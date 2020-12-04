@@ -301,6 +301,21 @@
   color: var(--alert);
 }
 
+button.text-alert {
+  color: var(--dark);
+}
+
+a.text-alert {
+  color: var(--light);
+}
+
+button.text-alert:focus,
+button.text-alert:hover,
+a.text-alert:focus,
+a.text-alert:hover {
+  color: var(--alert);
+}
+
 .text-logo {
   color: var(--logo-color);
 }
