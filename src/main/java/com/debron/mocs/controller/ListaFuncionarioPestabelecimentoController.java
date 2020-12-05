@@ -6,6 +6,7 @@
 package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.DAO;
+import com.debron.mocs.dao.EstabelecimentoDAO;
 import com.debron.mocs.dao.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,9 +46,9 @@ public class ListaFuncionarioPestabelecimentoController extends HttpServlet {
 
   public void filtrar(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    request.setAttribute("funcionarios", FuncionarioDAO.getInstancia().findAll());
+    request.setAttribute("estabelecimentos", EstabelecimentoDAO.getInstancia().findAll());
     RequestDispatcher view
-            = request.getRequestDispatcher("/listaFuncionarioPestabelecimento.jsp");
+            = request.getRequestDispatcher("pages/listar/listaFuncionarioPestabelecimento.jsp");
     view.forward(request, response);
   }
 
