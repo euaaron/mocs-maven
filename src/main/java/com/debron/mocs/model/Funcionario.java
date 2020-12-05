@@ -85,7 +85,6 @@ public class Funcionario {
 
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
-  }
-  
+  } 
   
 }

@@ -49,6 +49,9 @@ public class ManterEstabelecimentoController extends HttpServlet {
           SQLException,
           ClassNotFoundException {
     String acao = req.getParameter("acao");
+    String uriAnterior = req.getParameter("uriAtual");
+    req.setAttribute("uriAnterior", uriAnterior);
+    
     switch (acao) {
       case "prepararOperacao":
         prepararOperacao(req, res);
@@ -73,8 +76,7 @@ public class ManterEstabelecimentoController extends HttpServlet {
           throws ServletException, IOException {
     try {
       String operacao = req.getParameter("operacao");
-      String uriAnterior = req.getParameter("page");
-      req.setAttribute("uriAnterior", uriAnterior);
+
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
         String idEstabelecimento = req.getParameter("id");

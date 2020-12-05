@@ -49,18 +49,16 @@ public class ManterUsuarioController extends HttpServlet {
     String acao = req.getParameter("acao");
     String uriAnterior = req.getParameter("uriAtual");
     req.setAttribute("uriAnterior", uriAnterior);
-    
-    
-    
+
     if (req.getSession(false) != null) {
       switch (acao) {
-      case "prepararOperacao":
-        prepararOperacao(req, res);
-        break;
-      default:
-        confirmarOperacao(req, res);
-        break;
-    }
+        case "prepararOperacao":
+          prepararOperacao(req, res);
+          break;
+        default:
+          confirmarOperacao(req, res);
+          break;
+      }
     } else {
       req.getRequestDispatcher("/").forward(req, res);
     }
@@ -79,7 +77,8 @@ public class ManterUsuarioController extends HttpServlet {
         req.setAttribute("usuario", usuario);
       }
       RequestDispatcher view = req.getRequestDispatcher(
-              "/pages/cadastrar/cadastrarUsuario.jsp");
+              "/pages/cadastrar/cadastrarUsuario.jsp"
+      );
       view.forward(req, res);
     } catch (ServletException e) {
       throw e;
@@ -104,6 +103,7 @@ public class ManterUsuarioController extends HttpServlet {
     try {
       req.setCharacterEncoding("utf-8");
       if (operacao.equalsIgnoreCase("excluir")) {
+        req.getSession().invalidate();
         UsuarioDAO.getInstancia().remove(idUsuario);
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
@@ -126,7 +126,9 @@ public class ManterUsuarioController extends HttpServlet {
 
         if (!errorMsg.isEmpty()) {
           req.setAttribute("errorMsg", errorMsg);
-          req.getRequestDispatcher("/ManterUsuarioController?acao=prepararOperacao&operacao=Incluir").forward(req, res);
+          req.getRequestDispatcher(
+                  "/ManterUsuarioController?acao=prepararOperacao&operacao=Incluir"
+          ).forward(req, res);
           return;
         } else {
           Usuario usuario = new Usuario();
@@ -141,6 +143,10 @@ public class ManterUsuarioController extends HttpServlet {
           usuario.setUpdatedAt(hoje);
 
           UsuarioDAO.getInstancia().save(usuario);
+          
+          req.getSession().invalidate();
+          req.getSession(true);
+          req.setAttribute("userSession", usuario);
         }
 
       } else if (operacao.equalsIgnoreCase("editar")) {
