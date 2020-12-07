@@ -6,6 +6,7 @@
 package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.EstabelecimentoDAO;
+import com.debron.mocs.dao.FuncionarioDAO;
 import com.debron.mocs.dao.PratoDAO;
 import com.debron.mocs.model.Prato;
 import com.debron.mocs.utils.RandomID;
@@ -45,13 +46,18 @@ public class ManterPratoController extends HttpServlet {
           SQLException,
           ClassNotFoundException {
     
-    String fonte = req.getParameter("fonte");
+    String estabelecimento = req.getParameter("fonte");
+    
+    String consultorId = req.getParameter("consultor");
     
     req.setAttribute("estabelecimento", 
-            EstabelecimentoDAO.getInstancia().findById(fonte)
+            EstabelecimentoDAO.getInstancia().findById(estabelecimento)
     );
+    
     req.setAttribute("uriAnterior", req.getParameter("uriAtual"));
     String acao = req.getParameter("acao");
+    
+    req.setAttribute("consultor", FuncionarioDAO.getInstancia().findById(consultorId));
     
     switch (acao) {
       case "prepararOperacao":
@@ -93,7 +99,7 @@ public class ManterPratoController extends HttpServlet {
     String nome = req.getParameter("txtNome");
     String descricao = req.getParameter("txtDescricao");
     Integer exibir = Integer.parseInt(req.getParameter("txtExibir"));
-    String imgUrl = req.getParameter("txtImgUrl");
+    String imgUrl = req.getParameter("txtImagemUrl");
     float preco = Float.parseFloat(req.getParameter("txtPreco"));
 
     try {

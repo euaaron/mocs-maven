@@ -12,7 +12,14 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Pesquisar Funcionarios</title>
+    <c:choose>
+      <c:when test="${estabelecimento != null}">
+        <title>Equipe ${estabelecimento.nomeFantasia}</title>
+      </c:when>
+      <c:otherwise>
+        <title>Pesquisar Funcionários</title>
+      </c:otherwise>
+    </c:choose>
 
     <%-- Estilos e scripts próprios --%>
     <link rel="stylesheet" href="./main.css" />
@@ -37,32 +44,67 @@
         <div class="row breadcrumb">
           <ul class="breadcrumb">
             <li><a href="/">Menu Inicial</a></li>
+              <c:if test="${estabelecimento != null}">
+              <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
+              <li><a href="/PesquisarEstabelecimentoController">Estabelecimentos</a></li>
+              </c:if>
             <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
-            <li><a href="/PesquisarEstabelecimentoController">Pesquisar Estabelecimentos</a></li>
-            <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
-            <li>&nbsp;Pesquisar Funcionários</li>
+              <c:choose>
+                <c:when test="${estabelecimento != null}">
+                <li>Equipe ${estabelecimento.nomeFantasia}</li>
+                </c:when>
+                <c:otherwise>
+                <li>Pesquisar Funcionários</li>
+                </c:otherwise>
+              </c:choose>
           </ul>
         </div>
+
         <div class="col">
-          <h1>Pesquisar Funcionários</h1>
+          <c:choose>
+            <c:when test="${estabelecimento != null}">
+              <h1>Equipe ${estabelecimento.nomeFantasia}</h1>
+            </c:when>
+            <c:otherwise>
+              <h1>Pesquisar Funcionários</h1>
+            </c:otherwise>
+          </c:choose>
           <div>
-            <a href="ListaFuncionarioPestabelecimentoController?acao=filtrar">
-              <i class="fad fa-print"></i>
-              Funcionários por Estabelecimento
-            </a>
-            <a href="ListaFuncionarioController?acao=emitir">
-              <i class="fad fa-print"></i> Funcionarios
-            </a>
-            <a href="ManterFuncionarioController?acao=prepararOperacao&operacao=Incluir" method="post">
-              <i class="fad fa-plus"></i>
-            </a>
+            <c:choose>
+              <c:when test="${estabelecimento != null}">
+                <form action="ListaFuncionarioPestabelecimentoController?acao=emitir" method="post">
+                  <input type="hidden" name="txtIdEstabelecimento" value="${estabelecimento.id}"/>
+                  <a href="#" title="Emitir PDF" onclick="$(this).closest('form').submit()">
+                    <i class="fad fa-print"></i>
+                  </a>
+                </form>
+              </c:when>
+              <c:otherwise>
+                <a href="ListaFuncionarioController?acao=emitir" title="Emitir PDF">
+                  <i class="fad fa-print"></i>
+                </a>
+              </c:otherwise>
+            </c:choose>
+            <form action="/ManterFuncionarioController" method="post">
+              <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
+              <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+              <input type="hidden" name="consultor" value="${funcionario.id}" />
+              <input type="hidden" name="acao" value="prepararOperacao" />
+              <input type="hidden" name="operacao" value="Incluir" />
+              <a href="#" 
+                 title="Adicionar novo Funcionário" 
+                 onclick="$(this).closest('form').submit()"
+                 >
+                <i class="fad fa-plus"></i>
+              </a>
+            </form>
           </div>
         </div>
       </header>
 
       <section class="wrap-reverse">
         <c:choose>
-          <c:when test="${funcionarios.size() != 0 && (consultor.permissao == 0 || consultor.permissao == 5)}">
+          <c:when test="${funcionarios.size() != 0 && (consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1)}">
             <div class="row align-base">
 
               <div class="col flex-3">
@@ -70,56 +112,57 @@
                   <h4>EMPRESA</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <div class="row wrap">
-                    <span>
-                      <c:out value="${funcionario.estabelecimento.nomeFantasia}" />
-                    </span>
-                  </div>
+                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
+                    <div class="row wrap">
+                      <span>
+                        <c:out value="${funcionario.estabelecimento.nomeFantasia}" />
+                      </span>
+                    </div>
+                  </c:if>
                 </c:forEach>
               </div>
-              
+
               <div class="col flex-2">
                 <div class="row">
                   <h4>NOME</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  
-                  <div class="row wrap">
-                    <span>
-                      <c:out value="${funcionario.usuario.nome}" />
-                    </span>
-
-                  </div>
+                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
+                    <div class="row wrap">
+                      <span>
+                        ${funcionario.usuario.nome}
+                      </span>
+                    </div>
+                  </c:if>
                 </c:forEach>
               </div>
 
               <div class="col">
                 <div class="row">
-                  <h4>CARGO</h4>
+                  <h4>POSIÇÃO</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <div class="row wrap">
-                    <span>
-                      <c:if test="${funcionario.nivelPermissao == 0}">
-                        <c:out value="Proprietário" />
-                      </c:if>
-                      <c:if test="${funcionario.nivelPermissao == 1}">
-                        <c:out value="Gerente" />
-                      </c:if>
-                      <c:if test="${funcionario.nivelPermissao == 2}">
-                        <c:out value="Supervisor" />
-                      </c:if>
-                      <c:if test="${funcionario.nivelPermissao == 3}">
-                        <c:out value="Garçom" />
-                      </c:if>
-                      <c:if test="${funcionario.nivelPermissao == 4}">
-                        <c:out value="Cheff" />
-                      </c:if>
-                      <c:if test="${funcionario.nivelPermissao == 5}">
-                        <c:out value="Recrutador" />
-                      </c:if>
-                    </span>
-                  </div>
+                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
+                    <div class="row wrap">
+                      <span>
+                        <c:if test="${funcionario.nivelPermissao == 0}">
+                          <c:out value="Administrador" />
+                        </c:if>
+                        <c:if test="${funcionario.nivelPermissao == 1}">
+                          <c:out value="Gerente" />
+                        </c:if>
+                        <c:if test="${funcionario.nivelPermissao == 2}">
+                          <c:out value="Supervisor" />
+                        </c:if>
+                        <c:if test="${funcionario.nivelPermissao == 3}">
+                          <c:out value="Garçom" />
+                        </c:if>
+                        <c:if test="${funcionario.nivelPermissao == 4}">
+                          <c:out value="Cheff" />
+                        </c:if>
+                      </span>
+                    </div>
+                  </c:if>
                 </c:forEach>
               </div>
 
@@ -128,16 +171,18 @@
                   <h4>&nbsp;</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <div class="row">
-                    <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${funcionario.id}"
-                           />" >
-                      <i class="fad fa-edit"></i>
-                    </a>
-                    <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value=
-                           "${funcionario.id}" />" >
-                      <i class="fad fa-trash"></i>
-                    </a>
-                  </div>
+                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
+                    <div class="row">
+                      <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${funcionario.id}"
+                             />" >
+                        <i class="fad fa-edit"></i>
+                      </a>
+                      <a class="p-2 text-alert" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value=
+                             "${funcionario.id}" />" >
+                        <i class="fad fa-trash"></i>
+                      </a>
+                    </div>
+                  </c:if>
                 </c:forEach>
 
               </div>
@@ -155,14 +200,15 @@
               <h1><b><i class="fad fa-ghost huge"></i></b></h1>
               <h2 class="mv-2">Ooops...</h2>
               <h4> Não há Funcionários cadastrados.</h4>
-
-              <form class="mt-3" action="ManterFuncionarioController?acao=prepararOperacao&operacao=Incluir"
-                    method="post">
-                <input type="hidden" name="page" value="/PesquisarFuncionarioController" />
-                <button type="submit">
-                  <i class="fas fa-plus"></i> Adicione um!
-                </button>
-              </form>
+              <c:if test="${colsultor != null}">
+                <form class="mt-3" action="ManterFuncionarioController?acao=prepararOperacao&operacao=Incluir"
+                      method="post">
+                  <input type="hidden" name="page" value="/PesquisarFuncionarioController" />
+                  <button type="submit">
+                    <i class="fas fa-plus"></i> Adicione um!
+                  </button>
+                </form>
+              </c:if>
 
             </div>
           </c:otherwise>

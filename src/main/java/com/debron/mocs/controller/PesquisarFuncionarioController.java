@@ -5,8 +5,11 @@
  */
 package com.debron.mocs.controller;
 
+import com.debron.mocs.dao.EstabelecimentoDAO;
 import com.debron.mocs.dao.FuncionarioDAO;
+import com.debron.mocs.model.Funcionario;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,24 @@ public class PesquisarFuncionarioController extends HttpServlet {
           throws ServletException, IOException {
 
     String consultorId = req.getParameter("consultor");
+    
+    String estabelecimento = req.getParameter("fonte");
+    
+    List<Funcionario> funcionarios;
+    
+    if(estabelecimento != null) {
+      // funcionarios = FuncionarioDAO.getInstancia().findAllFrom(estabelecimento);
+      funcionarios = FuncionarioDAO.getInstancia().findAll();
+    } else {
+      funcionarios = FuncionarioDAO.getInstancia().findAll();
+    }
+    
+    req.setAttribute("funcionarios", funcionarios);
+    
+    req.setAttribute(
+            "estabelecimento", 
+            EstabelecimentoDAO.getInstancia().findById(estabelecimento)
+    );
     
     req.setAttribute("consultor", FuncionarioDAO.getInstancia().findById(consultorId));
     

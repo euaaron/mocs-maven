@@ -60,7 +60,30 @@ public class PratoDAO {
         return entity;
     }
   
-  public List<Prato> findByEstabelecimento(String estabelecimentoId) {
+  public Boolean removeAllFrom(String idEstabelecimento) {
+    EntityManager em = new ConexaoFactory().getConexao();
+    Boolean result;
+    try {
+      em.createNativeQuery(
+              "DELETE FROM Prato u WHERE u.ESTABELECIMENTO = '" 
+              + idEstabelecimento + "'",
+              Prato.class
+      ).executeUpdate();
+      
+      em.getTransaction().begin();
+      em.getTransaction().commit();
+      result = true;
+    } catch (Exception e) {
+      em.getTransaction().rollback();
+      result = false;
+      System.err.println(e);
+    } finally {
+      em.close();
+    }
+    return result;
+  }
+  
+  public List<Prato> findAllFrom(String estabelecimentoId) {
     EntityManager em = new ConexaoFactory().getConexao();
     List<Prato> entities = new ArrayList<>();
     try {

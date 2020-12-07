@@ -10,7 +10,9 @@ import com.debron.mocs.dao.FuncionarioDAO;
 import com.debron.mocs.dao.PratoDAO;
 import com.debron.mocs.model.Prato;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +29,18 @@ public class PesquisarPratoController extends HttpServlet {
     
     String consultorId = req.getParameter("consultor");
     
-    String fonte = req.getParameter("fonte");
+    String estabelecimentoId = req.getParameter("fonte");
     
-    List<Prato> pratos = PratoDAO.getInstancia().findAll();
+    final List<Prato> pratos = new ArrayList<>();
+    List<Prato> temp = PratoDAO.getInstancia().findAll();
+    
+    Predicate<Prato> porLugar = prato -> prato.getEstabelecimento().getId().equals(estabelecimentoId);
+    
+    if(estabelecimentoId != null) {
+      temp.stream().filter(porLugar).forEach(prato -> pratos.add(prato));
+    } else {
+      temp.forEach(prato -> pratos.add(prato));
+    }
     
     req.setAttribute("pratos", pratos );
     
@@ -39,7 +50,7 @@ public class PesquisarPratoController extends HttpServlet {
     
     req.setAttribute(
             "estabelecimento", 
-            EstabelecimentoDAO.getInstancia().findById(fonte)
+            EstabelecimentoDAO.getInstancia().findById(estabelecimentoId)
     );
     
     req.getRequestDispatcher(

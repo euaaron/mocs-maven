@@ -12,7 +12,14 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html" charset=UTF-8">
-    <title>Pesquisa de Pratos</title>
+    <c:choose>
+      <c:when test="${estabelecimento != null}">
+        <title>Cardápio | ${estabelecimento.nomeFantasia}</title>
+      </c:when>
+      <c:otherwise>
+        <title>Pesquisar Pratos</title>
+      </c:otherwise>
+    </c:choose>
 
     <!-- Estilos e scripts próprios -->
     <link rel="stylesheet" href="./main.css" />
@@ -37,26 +44,53 @@
         <div class="row breadcrumb">
           <ul>
             <li><a href="/">Menu Inicial</a></li>
+              <c:if test="${estabelecimento != null}">
+              <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
+              <li><a href="/PesquisarEstabelecimentoController">Estabelecimentos</a></li>
+              </c:if>
             <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
-            <li><a href="/PesquisarEstabelecimentoController">Pesquisar Estabelecimentos</a></li>
-            <li class="ph-2"><i class="fas fa-arrow-right"></i></li>
-            <li>Pesquisar Pratos</li>
+              <c:choose>
+                <c:when test="${estabelecimento != null}">
+                <li>Cardápio | ${estabelecimento.nomeFantasia}</li>
+                </c:when>
+                <c:otherwise>
+                <li>Pesquisar Pratos</li>
+                </c:otherwise>
+              </c:choose>
           </ul>
         </div>
 
         <div class="col">
-          <h1>Pesquisar Pratos</h1>
-          <div>
-            <a href="ListaPratoController?acao=emitir" title="Salvar em PDF">
-              <i class="fad fa-print"></i>Emitir Pratos
-            </a>
-            <a href="ListaPratoPestabelecimentoController?acao=filtrar">
-              <i class="fad fa-print"></i>
-              Emitir Pratos por Estabelecimento
-            </a>
-            <form action="/ManterPratoController" >
+          <c:choose>
+            <c:when test="${estabelecimento != null}">
+              <h1>Cardápio | ${estabelecimento.nomeFantasia}</h1>
+            </c:when>
+            <c:otherwise>
+              <h1>Pesquisar Pratos</h1>
+            </c:otherwise>
+          </c:choose>
+          <div class="mt-2">
+            <c:choose>
+              <c:when test="${estabelecimento != null}">
+                <form action="ListaPratoPestabelecimentoController?acao=emitir" method="post">
+                  <input type="hidden" name="txtIdEstabelecimento" value="${estabelecimento.id}"/>
+                  <a href="#" title="Emitir PDF" onclick="$(this).closest('form').submit()">
+                    <i class="fad fa-print"></i>
+                  </a>
+                </form>
+              </c:when>
+
+              <c:otherwise>
+                <a href="ListaPratoController?acao=emitir" title="Emitir PDF">
+                  <i class="fad fa-print"></i>
+                </a>
+              </c:otherwise>
+            </c:choose>
+
+            <form action="/ManterPratoController" method="post">
               <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
               <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+              <input type="hidden" name="consultor" value="${funcionario.id}" />
               <input type="hidden" name="acao" value="prepararOperacao" />
               <input type="hidden" name="operacao" value="Incluir" />
               <a href="#" 
@@ -77,7 +111,8 @@
               <c:forEach items="${pratos}" var="prato">
 
                 <div class="card row">
-                  <aside class="col flex-1 image" style="background-image: url(${prato.imagemUrl});" alt="${prato.nome}"></aside>
+                  <aside class=" col flex-1 bg-dark image" style="background-image: url(${prato.imagemUrl});" alt="${prato.nome}">
+                  </aside>
 
                   <aside class="col flex-3">
 
@@ -91,29 +126,29 @@
                     <div class="row mb-2">
                       <p>${prato.descricao}</p>
                     </div>
+                    <c:if test="${funcionario != null}">
+                      <div class="row">
 
-                    <div class="row">
+                        <div class="col flex-1">
+                          Criado em
+                        </div>
 
-                      <div class="col flex-1">
-                        Criado em
+                        <div class="col flex-1">
+                          Atualizado em
+                        </div>
                       </div>
+                      <div class="row">
+                        <div class="col flex-1">
+                          <b>${prato.createdAt}</b>
+                        </div>
 
-                      <div class="col flex-1">
-                        Atualizado em
+                        <div class="col flex-1">
+                          <b>${prato.updatedAt}</b>
+                        </div>
                       </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col flex-1">
-                        <b>${prato.createdAt}</b>
-                      </div>
-
-                      <div class="col flex-1">
-                        <b>${prato.updatedAt}</b>
-                      </div>
-                    </div>
+                    </c:if>
                   </aside>
-                  <c:if test="${colsultor == null}">
+                  <c:if test="${funcionario != null}">
                     <aside class="col center bg-dark text-light">
                       <c:if test="${prato.exibir == 0}">
                         <i class="fas fa-eye-slash p-4">
@@ -148,14 +183,15 @@
               <h1><b><i class="fad fa-ghost huge"></i></b></h1>
               <h2 class="mv-2">Ooops...</h2>
               <h4> Não há pratos cadastrados.</h4>
-
-              <form class="mt-3" action="ManterPratoController?acao=prepararOperacao&operacao=Incluir"
-                    method="post">
-                <input type="hidden" name="uriAtual" value="/PesquisarPratoController" />
-                <button type="submit">
-                  <i class="fas fa-plus"></i> Adicione agora!
-                </button>
-              </form>
+              <c:if test="${colsultor != null}">
+                <form class="mt-3" action="ManterPratoController?acao=prepararOperacao&operacao=Incluir"
+                      method="post">
+                  <input type="hidden" name="uriAtual" value="/PesquisarPratoController" />
+                  <button type="submit">
+                    <i class="fas fa-plus"></i> Adicione agora!
+                  </button>
+                </form>
+              </c:if>
 
             </div>
           </c:otherwise>

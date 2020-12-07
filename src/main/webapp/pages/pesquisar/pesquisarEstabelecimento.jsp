@@ -13,7 +13,7 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>MOCS | Pesquisar Estabelecimentos</title>
+    <title>MOCS | Estabelecimentos</title>
 
     <%-- Estilos e scripts próprios --%>
     <link rel="stylesheet" href="./main.css" />
@@ -40,20 +40,22 @@
           <ul>
             <li><a href="/">Menu Inicial</a></li>
             <li><i class="fas fa-arrow-right"></i></li>
-            <li>&nbsp;Pesquisar Estabelecimentos</li>
+            <li>&nbsp;Estabelecimentos</li>
           </ul>
         </div>
 
         <div class="col">
-          <h1>Pesquisar Estabelecimentos</h1>
+          <h1>Estabelecimentos</h1>
           <div>
-            <a href="ListaEstabelecimentoController?acao=emitir" title="Salvar em PDF">
-              <i class="fad fa-print"></i> Salvar em PDF
+            <a href="ListaEstabelecimentoController?acao=emitir" title="Emitir PDF">
+              <i class="fad fa-print"></i>
             </a>
-            <a href="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Incluir"
-               title="Adicionar novo Estabelecimento">
-              <i class="fad fa-plus"></i>
-            </a>
+            <form action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Incluir" method="post">
+              <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController"/>
+              <a href="#" title="Adicionar Estabelecimento" onclick="$(this).closest('form').submit()">
+                <i class="fad fa-plus"></i>
+              </a>
+            </form>
           </div>
         </div>
       </header>
@@ -73,14 +75,14 @@
                     <form action="/PesquisarPratoController" >
                       <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
                       <input type="hidden" name="fonte" value="${estabelecimento.id}" />
-                      
+
                       <c:forEach items="${funcionarios}" var="funcionario">
                         <c:if
                           test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
                           <input type="hidden" name="consultor" value="${funcionario.id}" />
                         </c:if>
                       </c:forEach>
-                          
+
                       <a href="#" class="p-2" onclick="$(this).closest('form').submit()" title="Pratos">
                         <i class="fad fa-utensils-alt"></i>
                       </a>

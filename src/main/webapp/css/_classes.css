@@ -368,12 +368,17 @@ a.text-alert:hover {
   background-color: var(--light);
   padding: 1rem;
   flex-wrap: wrap;
+  border-radius: 0;
+  max-width: 60vw;
+  min-width: 50vw;
   border-radius: 10rem 0 0 10rem;
 }
 
 .image {
-  border-radius: 10rem 0 0 10rem;
+  border-radius: 10rem 0 0 10rem;  
   background-size: cover;
+  background-position: 25% 50%;
   background-repeat: no-repeat;
+  min-height: 8rem;
   min-width: 8rem;
 }
