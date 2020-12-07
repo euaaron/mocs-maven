@@ -6,6 +6,7 @@
 package com.debron.mocs.dao;
 
 import com.debron.mocs.model.Prato;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -58,6 +59,22 @@ public class PratoDAO {
         }
         return entity;
     }
+  
+  public List<Prato> findByEstabelecimento(String estabelecimentoId) {
+    EntityManager em = new ConexaoFactory().getConexao();
+    List<Prato> entities = new ArrayList<>();
+    try {
+      entities = em.createNativeQuery(
+              "SELECT * FROM Prato u WHERE u.ESTABELECIMENTO = '" + estabelecimentoId + "'",
+              Prato.class
+      ).getResultList();
+    } catch (Exception e) {
+      System.err.println(e);
+    } finally {
+      em.close();
+    }
+    return entities;
+  }
   
   public Prato findById(String id) {
         EntityManager em = new ConexaoFactory().getConexao();

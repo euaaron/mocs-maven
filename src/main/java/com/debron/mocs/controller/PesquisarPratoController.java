@@ -5,10 +5,12 @@
  */
 package com.debron.mocs.controller;
 
+import com.debron.mocs.dao.EstabelecimentoDAO;
+import com.debron.mocs.dao.FuncionarioDAO;
 import com.debron.mocs.dao.PratoDAO;
+import com.debron.mocs.model.Prato;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +24,27 @@ public class PesquisarPratoController extends HttpServlet {
 
  protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
-    req.setAttribute("pratos", PratoDAO.getInstancia().findAll());
-    RequestDispatcher view = req.getRequestDispatcher(
-            "/pages/pesquisar/pesquisarPrato.jsp");
-    view.forward(req, res);
+    
+    String consultorId = req.getParameter("consultor");
+    
+    String fonte = req.getParameter("fonte");
+    
+    List<Prato> pratos = PratoDAO.getInstancia().findAll();
+    
+    req.setAttribute("pratos", pratos );
+    
+    req.setAttribute("funcionario", FuncionarioDAO.getInstancia().findById(consultorId));
+    
+    req.setAttribute("uriAnterior", req.getParameter("uriAtual"));
+    
+    req.setAttribute(
+            "estabelecimento", 
+            EstabelecimentoDAO.getInstancia().findById(fonte)
+    );
+    
+    req.getRequestDispatcher(
+            "/pages/pesquisar/pesquisarPrato.jsp"
+    ).forward(req, res);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

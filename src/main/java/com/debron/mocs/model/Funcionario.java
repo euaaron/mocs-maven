@@ -54,6 +54,10 @@ public class Funcionario {
   public void setStatusConta(Boolean statusConta) {
     this.statusConta = statusConta;
   }
+  
+  public void setStatusConta() {
+    this.statusConta = true;
+  }
 
   public Estabelecimento getEstabelecimento() {
     return estabelecimento;

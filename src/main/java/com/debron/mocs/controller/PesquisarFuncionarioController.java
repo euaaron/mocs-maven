@@ -7,8 +7,6 @@ package com.debron.mocs.controller;
 
 import com.debron.mocs.dao.FuncionarioDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,17 +22,23 @@ public class PesquisarFuncionarioController extends HttpServlet {
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
    * methods.
    *
-   * @param request servlet request
-   * @param response servlet response
+   * @param req servlet request
+   * @param res servlet response
    * @throws ServletException if a servlet-specific error occurs
    * @throws IOException if an I/O error occurs
    */
   protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
-    req.setAttribute("funcionarios", FuncionarioDAO.getInstancia().findAll());
-    RequestDispatcher view = req.getRequestDispatcher(
-            "/pages/pesquisar/pesquisarFuncionario.jsp");
-    view.forward(req, res);
+
+    String consultorId = req.getParameter("consultor");
+    
+    req.setAttribute("consultor", FuncionarioDAO.getInstancia().findById(consultorId));
+    
+    req.setAttribute("uriAnterior", req.getParameter("uriAtual"));
+
+    req.getRequestDispatcher(
+            "/pages/pesquisar/pesquisarFuncionario.jsp"
+    ).forward(req, res);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

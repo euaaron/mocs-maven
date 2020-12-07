@@ -25,9 +25,9 @@
 
   <body>
 
-    <section>
-      <i class="fas fa-debug"></i>
-      <h1>Encontramos um Bug!</h1>
+    <section class="col">
+      <i class="fas fa-debug medium mv-3"></i>
+      <h1>Encontramos um&nbsp;<span class="text-alert">Bug</span>!</h1>
     </section>
     <section>
       <c:if test="${codigoStatus != 0}">
@@ -35,11 +35,11 @@
         <code>${codigoStatus}</code>
       </c:if>
       <c:if test="${nomeServlet != null}">
-        <h5>Nome do servlet:</h5>
+        <h5>Nome do servlet</h5>
         <code>${nomeServlet}</code>
       </c:if>
       <c:if test="${excecao != null}">
-        <h5>Tipo de exceção:</h5>
+        <h5>Tipo de exceção</h5>
         <code>${excecao.getClass().getName()}</code>
       </c:if>
       <c:if test="${uriDestino != null}">
@@ -47,12 +47,12 @@
         <code>${uriDestino}</code>
       </c:if>
       <c:if test="${excecao.getMessage() != null}">
-        <h5>Mensagem:</h5>
+        <h5>Mensagem</h5>
         <code>${excecao.getMessage()}</code>
       </c:if>
 
-      <a href="/">Voltar à home</a>.
-          
+      <a href="/">Voltar ao inicio</a>.
+
     </section>
 
   </body>

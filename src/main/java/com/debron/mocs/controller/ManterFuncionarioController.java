@@ -5,32 +5,24 @@
  */
 package com.debron.mocs.controller;
 
-import com.debron.mocs.dao.EnderecoDAO;
 import com.debron.mocs.dao.EstabelecimentoDAO;
 import com.debron.mocs.dao.FuncionarioDAO;
 import com.debron.mocs.dao.UsuarioDAO;
 import com.debron.mocs.model.Funcionario;
-import com.debron.mocs.model.Usuario;
-import com.debron.mocs.utils.Crypto;
 import com.debron.mocs.utils.RandomID;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -89,7 +81,7 @@ public class ManterFuncionarioController extends HttpServlet {
   public void confirmarOperacao(HttpServletRequest req, HttpServletResponse res)
           throws SQLException, ClassNotFoundException, ServletException {
     String operacao = req.getParameter("operacao");
-    String errorMsg;
+    List<String> errorMsg = new ArrayList<>();
 
     String idFuncionario = req.getParameter("txtIdFuncionario");
     String idEstabelecimento = req.getParameter("txtIdEstabelecimento");
