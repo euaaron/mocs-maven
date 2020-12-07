@@ -9,7 +9,9 @@ import com.debron.mocs.dao.EstabelecimentoDAO;
 import com.debron.mocs.dao.FuncionarioDAO;
 import com.debron.mocs.model.Funcionario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +39,17 @@ public class PesquisarFuncionarioController extends HttpServlet {
     
     String estabelecimento = req.getParameter("fonte");
     
-    List<Funcionario> funcionarios;
+    final List<Funcionario> funcionarios;
+    
+    funcionarios = new ArrayList<>();
+    List<Funcionario> temp = FuncionarioDAO.getInstancia().findAll();
+    
+    Predicate<Funcionario> porLugar = funcionario -> funcionario.getEstabelecimento().getId().equals(estabelecimento);
     
     if(estabelecimento != null) {
-      // funcionarios = FuncionarioDAO.getInstancia().findAllFrom(estabelecimento);
-      funcionarios = FuncionarioDAO.getInstancia().findAll();
+      temp.stream().filter(porLugar).forEach(funcionario -> funcionarios.add(funcionario));
     } else {
-      funcionarios = FuncionarioDAO.getInstancia().findAll();
+      temp.forEach(funcionario -> funcionarios.add(funcionario));
     }
     
     req.setAttribute("funcionarios", funcionarios);

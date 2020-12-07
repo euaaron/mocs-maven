@@ -85,7 +85,9 @@
                 </a>
               </c:otherwise>
             </c:choose>
-            <form action="/ManterFuncionarioController" method="post">
+              
+            <c:if test="${estabelecimento != null}">
+              <form action="/ManterFuncionarioController" method="post">
               <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
               <input type="hidden" name="fonte" value="${estabelecimento.id}" />
               <input type="hidden" name="consultor" value="${funcionario.id}" />
@@ -98,6 +100,8 @@
                 <i class="fad fa-plus"></i>
               </a>
             </form>
+            </c:if>
+              
           </div>
         </div>
       </header>
