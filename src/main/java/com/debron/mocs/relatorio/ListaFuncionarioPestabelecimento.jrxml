@@ -72,9 +72,9 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 		<band height="17"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="73">
+		<band height="64">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="51" width="180" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="80bb221b-87ed-4aef-b9ed-af530f02f6a3">
+				<reportElement mode="Opaque" x="0" y="44" width="180" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="80bb221b-87ed-4aef-b9ed-af530f02f6a3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b814ffad-cae8-400e-8374-a4504961ee07"/>
 				</reportElement>
 				<box leftPadding="15"/>
@@ -94,7 +94,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<text><![CDATA[Contato:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="180" y="51" width="191" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="617308ac-75f7-4497-9870-3ab0ad046c9b">
+				<reportElement mode="Opaque" x="180" y="44" width="191" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="617308ac-75f7-4497-9870-3ab0ad046c9b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e550fdc-3b3c-4de1-8627-034f38b83f49"/>
 				</reportElement>
 				<box leftPadding="10"/>
@@ -104,7 +104,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<text><![CDATA[E-mail]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="371" y="51" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="6b62c2e9-d484-41fb-80fa-20cd6f48e5bc">
+				<reportElement mode="Opaque" x="371" y="44" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="6b62c2e9-d484-41fb-80fa-20cd6f48e5bc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29b31cef-54e9-4875-bac9-882e013e18e5"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -113,7 +113,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<text><![CDATA[Posição]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="463" y="51" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="c17d9fa2-d212-42a7-be2e-4e7d50053cd2">
+				<reportElement mode="Opaque" x="463" y="44" width="92" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="c17d9fa2-d212-42a7-be2e-4e7d50053cd2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="770ae2f1-7467-4759-9112-642bece9b7e6"/>
 				</reportElement>
 				<textElement textAlignment="Center">
