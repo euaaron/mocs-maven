@@ -87,24 +87,27 @@
               </c:otherwise>
             </c:choose>
 
-            <form action="/ManterPratoController" method="post">
-              <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
-              <input type="hidden" name="fonte" value="${estabelecimento.id}" />
-              <input type="hidden" name="consultor" value="${funcionario.id}" />
-              <input type="hidden" name="acao" value="prepararOperacao" />
-              <input type="hidden" name="operacao" value="Incluir" />
-              <a href="#" 
-                 title="Adicionar novo Prato" 
-                 onclick="$(this).closest('form').submit()"
-                 >
-                <i class="fad fa-plus"></i>
-              </a>
-            </form>
-          </div>
-        </div>
-      </header>
+            <c:if test="${estabelecimento != null}">
+              <form action="/ManterPratoController" method="post">
+                <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
+                <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+                <input type="hidden" name="consultor" value="${funcionario.id}" />
+                <input type="hidden" name="acao" value="prepararOperacao" />
+                <input type="hidden" name="operacao" value="Incluir" />
+                <a href="#" 
+                   title="Adicionar novo Prato" 
+                   onclick="$(this).closest('form').submit()"
+                   >
+                  <i class="fad fa-plus"></i>
+                </a>
+              </form>
+            </c:if>
 
-      <section class="wrap-reverse">
+            </div>
+          </div>
+        </header>
+
+        <section class="wrap-reverse">
         <c:choose>
           <c:when test="${pratos.size() != 0}">
             <div class="col flex-2">
