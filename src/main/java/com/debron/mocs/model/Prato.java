@@ -90,6 +90,10 @@ public class Prato {
   public void setExibir(Integer exibir) {
     this.exibir = exibir;
   }
+  
+  public void setExibir() {
+    this.exibir = 1;
+  }
 
   public String getCreatedAt() {
     return createdAt;
