@@ -87,7 +87,7 @@
               </c:otherwise>
             </c:choose>
 
-            <c:if test="${estabelecimento != null}">
+            <c:if test="${estabelecimento != null && funcionario != null}">
               <form action="/ManterPratoController" method="post">
                 <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
                 <input type="hidden" name="fonte" value="${estabelecimento.id}" />
@@ -103,76 +103,85 @@
               </form>
             </c:if>
 
-            </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        <section class="wrap-reverse">
+      <section class="wrap-reverse">
         <c:choose>
           <c:when test="${pratos.size() != 0}">
             <div class="col flex-2">
               <c:forEach items="${pratos}" var="prato">
-
-                <div class="card row">
-                  <aside class=" col flex-1 bg-dark image" style="background-image: url(${prato.imagemUrl});" alt="${prato.nome}">
-                  </aside>
-
-                  <aside class="col flex-3">
-
-                    <div class="col mb-2">
-                      <h2 class="card-subtitle">
-                        ${prato.nome}
-                      </h2>
-                      <h4 class="card-title">R$ ${prato.preco}</h4>
-                    </div>
-
-                    <div class="row mb-2">
-                      <p>${prato.descricao}</p>
-                    </div>
-                    <c:if test="${funcionario != null}">
-                      <div class="row">
-
-                        <div class="col flex-1">
-                          Criado em
-                        </div>
-
-                        <div class="col flex-1">
-                          Atualizado em
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col flex-1">
-                          <b>${prato.createdAt}</b>
-                        </div>
-
-                        <div class="col flex-1">
-                          <b>${prato.updatedAt}</b>
-                        </div>
-                      </div>
-                    </c:if>
-                  </aside>
-                  <c:if test="${funcionario != null}">
-                    <aside class="col center bg-dark text-light">
-                      <c:if test="${prato.exibir == 0}">
-                        <i class="fas fa-eye-slash p-4">
-                        </i>
-                      </c:if>
-                      <c:if test="${prato.exibir == 1}">
-                        <i class="fas fa-eye p-4" title="Exibindo no Cardápio">
-                        </i>
-                      </c:if>
-                      <a href="ManterPratoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="
-                             ${prato.id}" />" > 
-                        <i class="fas fa-edit p-4" title="Editar"></i>
-                      </a>
-                      <a class="text-alert m-0" href="ManterPratoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="
-                             ${prato.id}" />" > 
-                        <i class="fas fa-trash p-4" title="Excluir"></i>
-                      </a>
+                <c:if test="${prato.exibir == 1 || funcionario != null}">
+                  <div class="card row">
+                    <aside class=" col flex-1 bg-dark image" style="background-image: url(${prato.imagemUrl});" alt="${prato.nome}">
                     </aside>
-                  </c:if>
-                </div>
 
+                    <aside class="col flex-3">
+
+                      <div class="col mb-2">
+                        <h2 class="card-subtitle">
+                          ${prato.nome}
+                        </h2>
+                        <h4 class="card-title">R$ ${prato.preco}</h4>
+                      </div>
+
+                      <div class="row mb-2">
+                        <p>${prato.descricao}</p>
+                      </div>
+                      <c:if test="${funcionario != null}">
+                        <div class="row">
+
+                          <div class="col flex-1">
+                            Criado em
+                          </div>
+
+                          <div class="col flex-1">
+                            Atualizado em
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col flex-1">
+                            <b>${prato.createdAt}</b>
+                          </div>
+
+                          <div class="col flex-1">
+                            <b>${prato.updatedAt}</b>
+                          </div>
+                        </div>
+                      </c:if>
+                    </aside>
+                    <c:if test="${funcionario != null && (funcionario.nivelPermissao == 0 || funcionario.nivelPermissao == 1 || funcionario.nivelPermissao == 2 || funcionario.nivelPermissao == 4)}">
+                      <aside class="col center bg-dark text-light">
+                        <c:if test="${prato.exibir == 0}">
+                          <i class="fas fa-eye-slash p-4" title="Ocultando do Cardápio">
+                          </i>
+                        </c:if>
+                        <c:if test="${prato.exibir == 1}">
+                          <i class="fas fa-eye p-4" title="Exibindo no Cardápio">
+                          </i>
+                        </c:if>
+                        <form action="/ManterPratoController" method="post">
+                          
+                          <input type="hidden" name="uriAtual" value="/PesquisarPratoController" />
+                          <input type="hidden" name="acao" value="prepararOperacao" />
+                          <input type="hidden" name="operacao" value="Editar" />
+                          <input type="hidden" name="id" value="${prato.id}" />
+                          <a 
+                            href="#" 
+                            title="Editar" 
+                            onclick="$(this).closest('form').submit()">
+                            <i class="fas fa-edit p-4"></i>
+                          </a>
+                        </form>
+                        <a class="text-alert m-0" href="ManterPratoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="
+                               ${prato.id}" />" > 
+                          <i class="fas fa-trash p-4" title="Excluir"></i>
+                        </a>
+                      </aside>
+                    </c:if>
+                  </div>
+                </c:if>
               </c:forEach>
             </div>
             <div class="flex-1">

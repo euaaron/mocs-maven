@@ -85,30 +85,30 @@
                 </a>
               </c:otherwise>
             </c:choose>
-              
-            <c:if test="${estabelecimento != null}">
+
+            <c:if test="${estabelecimento != null && (consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1)}">
               <form action="/ManterFuncionarioController" method="post">
-              <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
-              <input type="hidden" name="fonte" value="${estabelecimento.id}" />
-              <input type="hidden" name="consultor" value="${funcionario.id}" />
-              <input type="hidden" name="acao" value="prepararOperacao" />
-              <input type="hidden" name="operacao" value="Incluir" />
-              <a href="#" 
-                 title="Adicionar novo Funcionário" 
-                 onclick="$(this).closest('form').submit()"
-                 >
-                <i class="fad fa-plus"></i>
-              </a>
-            </form>
+                <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
+                <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+                <input type="hidden" name="consultor" value="${consultor.id}" />
+                <input type="hidden" name="acao" value="prepararOperacao" />
+                <input type="hidden" name="operacao" value="Incluir" />
+                <a href="#" 
+                   title="Adicionar novo Funcionário" 
+                   onclick="$(this).closest('form').submit()"
+                   >
+                  <i class="fad fa-plus"></i>
+                </a>
+              </form>
             </c:if>
-              
+
           </div>
         </div>
       </header>
 
       <section class="wrap-reverse">
         <c:choose>
-          <c:when test="${funcionarios.size() != 0 && (consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1)}">
+          <c:when test="${funcionarios.size() != 0 && (consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1 || consultor == null) }">
             <div class="row align-base">
 
               <div class="col flex-3">
@@ -116,13 +116,11 @@
                   <h4>EMPRESA</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
-                    <div class="row wrap">
-                      <span>
-                        <c:out value="${funcionario.estabelecimento.nomeFantasia}" />
-                      </span>
-                    </div>
-                  </c:if>
+                  <div class="row wrap">
+                    <span>
+                      <c:out value="${funcionario.estabelecimento.nomeFantasia}" />
+                    </span>
+                  </div>
                 </c:forEach>
               </div>
 
@@ -131,13 +129,11 @@
                   <h4>NOME</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
-                    <div class="row wrap">
-                      <span>
-                        ${funcionario.usuario.nome}
-                      </span>
-                    </div>
-                  </c:if>
+                  <div class="row wrap">
+                    <span>
+                      ${funcionario.usuario.nome}
+                    </span>
+                  </div>
                 </c:forEach>
               </div>
 
@@ -146,27 +142,25 @@
                   <h4>POSIÇÃO</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
-                    <div class="row wrap">
-                      <span>
-                        <c:if test="${funcionario.nivelPermissao == 0}">
-                          <c:out value="Administrador" />
-                        </c:if>
-                        <c:if test="${funcionario.nivelPermissao == 1}">
-                          <c:out value="Gerente" />
-                        </c:if>
-                        <c:if test="${funcionario.nivelPermissao == 2}">
-                          <c:out value="Supervisor" />
-                        </c:if>
-                        <c:if test="${funcionario.nivelPermissao == 3}">
-                          <c:out value="Garçom" />
-                        </c:if>
-                        <c:if test="${funcionario.nivelPermissao == 4}">
-                          <c:out value="Cheff" />
-                        </c:if>
-                      </span>
-                    </div>
-                  </c:if>
+                  <div class="row wrap">
+                    <span>
+                      <c:if test="${funcionario.nivelPermissao == 0}">
+                        <c:out value="Administrador" />
+                      </c:if>
+                      <c:if test="${funcionario.nivelPermissao == 1}">
+                        <c:out value="Gerente" />
+                      </c:if>
+                      <c:if test="${funcionario.nivelPermissao == 2}">
+                        <c:out value="Supervisor" />
+                      </c:if>
+                      <c:if test="${funcionario.nivelPermissao == 3}">
+                        <c:out value="Garçom" />
+                      </c:if>
+                      <c:if test="${funcionario.nivelPermissao == 4}">
+                        <c:out value="Cheff" />
+                      </c:if>
+                    </span>
+                  </div>
                 </c:forEach>
               </div>
 
@@ -175,18 +169,42 @@
                   <h4>&nbsp;</h4>
                 </div>
                 <c:forEach items="${funcionarios}" var="funcionario">
-                  <c:if test="${funcionario.estabelecimento.id == estabelecimento.id}">
-                    <div class="row">
-                      <a class="p-2" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${funcionario.id}"
-                             />" >
-                        <i class="fad fa-edit"></i>
-                      </a>
-                      <a class="p-2 text-alert" href="ManterFuncionarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value=
-                             "${funcionario.id}" />" >
-                        <i class="fad fa-trash"></i>
-                      </a>
-                    </div>
-                  </c:if>
+
+                  <div class="row">
+                    <c:if test="${estabelecimento != null && (consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1)}">
+                      <form action="/ManterFuncionarioController" method="post">
+                        <input type="hidden" name="uriAtual" value="/PesquisarFuncionarioController" />
+                        <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+                        <input type="hidden" name="consultor" value="${consultor.id}" />
+                        <input type="hidden" name="acao" value="prepararOperacao" />
+                        <input type="hidden" name="operacao" value="Editar" />
+                        <input type="hidden" name="id" value="${funcionario.id}" />
+                        <a href="#"
+                           class="p-2"
+                           title="Editar Funcionário" 
+                           onclick="$(this).closest('form').submit()"
+                           >
+                          <i class="fad fa-edit"></i>
+                        </a>
+                      </form>
+                      <form action="/ManterFuncionarioController" method="post">
+                        <input type="hidden" name="uriAtual" value="/PesquisarFuncionarioController" />
+                        <input type="hidden" name="fonte" value="${estabelecimento.id}" />
+                        <input type="hidden" name="consultor" value="${consultor.id}" />
+                        <input type="hidden" name="acao" value="prepararOperacao" />
+                        <input type="hidden" name="operacao" value="Excluir" />
+                        <input type="hidden" name="id" value="${funcionario.id}" />
+                        <a href="#" 
+                           class="p-2"
+                           title="Excluir Funcionário" 
+                           onclick="$(this).closest('form').submit()"
+                           >
+                          <i class="fad fa-trash"></i>
+                        </a>
+                      </form>
+                    </c:if>
+                  </div>
+
                 </c:forEach>
 
               </div>

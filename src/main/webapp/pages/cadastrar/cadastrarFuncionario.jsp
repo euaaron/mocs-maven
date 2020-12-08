@@ -34,7 +34,7 @@
           <h2>Editar Funcionário</h2>
         </c:when>
         <c:when test="${operacao.equalsIgnoreCase('excluir')}">
-          <i class="fad fa-user-tie-slash"></i>
+          <i class="fad fa-user-slash text-alert"></i>
           <h2>Excluir Funcionário</h2>
         </c:when>
         <c:otherwise>
@@ -54,87 +54,111 @@
 
       <form id="incluir" action="ManterFuncionarioController?acao=confirmarOperacao&operacao=${operacao}"
             name="frmManterFuncionario" method="post" onsubmit="return validarFormulario(this)">
-
-        <c:if test="${errorMsg != null}">
+        <input type="hidden" name="txtIdEstabelecimento" value="${estabelecimento.id}" />
+        <c:if test="${!errorMsg.isEmpty()}">
           <div class="row">
             <div class="col">
-              <p class="error">${errorMsg}</p>
+              <c:forEach items="${errorMsg}" var="error">
+                <p class="error bg-dark">${error}</p>
+              </c:forEach>
             </div>
+          </div>
+        </c:if>
+
+        <c:if test="${!operacao.equalsIgnoreCase('incluir')}">
+          <div class="row wrap">
+            <h2 class="wrap">${funcionario.usuario.nome}</h2>
           </div>
         </c:if>
 
 
         <div class="row">
-          <label class="col flex-1" for="idFuncao">Função:
+          <label class="col flex-1" for="txtNivelPermissao">Função:
             <div class="col">
-              <select class="custom-select mr-sm-2" id="idFuncao" name="txtIdFuncao">
-                <option value="6" <c:if test="${funcionario.nivelPermissao == null}"> selected</c:if>> </option>
-                <option value="0" <c:if test="${funcionario.nivelPermissao == 0}"> selected</c:if>>
-                    Administrador
-                  </option>
-                  <option value="1" <c:if test="${funcionario.nivelPermissao == 1}"> selected</c:if>>
-                    Gerente
-                  </option>
-                  <option value="2" <c:if test="${funcionario.nivelPermissao == 2}"> selected</c:if>>
-                    Supervisor
-                  </option>
-                  <option value="3" <c:if test="${funcionario.nivelPermissao == 3}"> selected</c:if>>
-                    Garçom
-                  </option>
-                  <option value="4" <c:if test="${funcionario.nivelPermissao == 4}"> selected</c:if>>
-                    Cheff
-                  </option>
-                </select>
-              </div>
-            </label>
-            <div class="row ml-2">
-              <label class="col-sm-2 col-form-label" for="status">Status da Conta:
-                <div class="col-sm-2">
-                  <select class="custom-select mr-sm-2" id="status" name="txtStatusConta">
-                    <option value="0">Desativada</option>
-                    <option value="1">Ativada</option>
+              <select class="custom-select mr-sm-2" id="idFuncao" name="txtNivelPermissao">
+                <c:if test="${((consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1) && (removeAdmin == true && funcionario.nivelPermissao == 0) || funcionario.nivelPermissao != 0)|| funcionario == null}">
+                  <option 
+                    value="3" 
+                    <c:if test="${funcionario.nivelPermissao == null || funcionario.nivelPermissao == 3}"> 
+                      selected</c:if>>
+                      Garçom
+                    </option>
+                    <option value="4" <c:if test="${funcionario.nivelPermissao == 4}"> selected</c:if>>
+                      Cheff
+                    </option>
+                    <option value="2" <c:if test="${funcionario.nivelPermissao == 2}"> selected</c:if>>
+                      Supervisor
+                    </option>
+                </c:if>
+                <c:if test="${consultor.nivelPermissao == 0}">
+                  <c:if test="${((removeAdmin == true && funcionario.nivelPermissao == 0) || funcionario.nivelPermissao != 0)|| funcionario == null}">
+                    <option value="1" <c:if test="${funcionario.nivelPermissao == 1}"> selected</c:if>>
+                        Gerente
+                      </option>
+                  </c:if>
+                  <option value="0" <c:if test="${funcionario.nivelPermissao == 0}"> selected</c:if>>
+                      Administrador
+                    </option>
+                </c:if>
+              </select>
+            </div>
+          </label>
+
+          <div class="row ml-2">
+            <label class="col-sm-2 col-form-label" for="status">Status da Conta:
+              <div class="col-sm-2">
+                <select class="custom-select mr-sm-2" id="status" name="txtStatusConta">
+                  <c:if test="${((consultor.nivelPermissao == 0 || consultor.nivelPermissao == 1) && ((removeAdmin == true && funcionario.nivelPermissao == 0)) || funcionario.nivelPermissao != 0)|| funcionario == null}">
+                    <option value="false"
+                            <c:if test="${funcionario.statusConta == false}"> 
+                              selected</c:if>>Desativada</option>
+                  </c:if>
+                  <option value="true" <c:if test="${funcionario.statusConta == true}"> 
+                          selected</c:if>>Ativada</option>
                   </select>
                 </div>
               </label>
             </div>
           </div>
 
-
-          <div class="row">
-            <label class="col-sm-2 col-form-label" for="nome">Nome
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="cpf">CPF:
               <div class="col-sm-2">
-                <input class="form-control" type="text" name="txtNome" id="nome" maxlength="45"
-                       value="${funcionario.usuario.nome}" readonly />
-            </div>
-          </label>
-        </div>
-        <div class="row mb-3">
-          <label class="col-sm-2 col-form-label" for="cpf">CPF:
-            <div class="col-sm-2">
-              <input class="form-control" type="text" name="txtCpf" id="cpf" maxlength="14" onkeyup="filtra('cpf')"
-                     placeholder="000.000.000-00" value="${funcionario.usuario.cpf}" readonly />
-            </div>
-          </label>
-        </div>
+                <input class="form-control" type="text" name="txtCpf" id="cpf" maxlength="14" onkeyup="filtra('cpf')"
+                       placeholder="000.000.000-00" value="${consultor.nivelPermissao == 0 ? funcionario.usuario.cpf : ""}" <c:if test="${consultor.nivelPermissao != 0 || operacao.equalsIgnoreCase('excluir')}">readonly</c:if> />
+              </div>
+            </label>
+          </div>
 
-        <div class="col center mt-5">
+          <div class="col center mt-5">
 
           <c:choose>
+            <c:when test="${operacao.equalsIgnoreCase('editar') && funcionario.nivelPermissao == 0 && consultor.nivelPermissao != 0}">
+              <p class="text-alert bg-dark wrap ph-2">Você não tem permiassão para editar o Admin do estabelecimento!</p>
+            </c:when>
+            
             <c:when test="${operacao.equalsIgnoreCase('editar')}">
               <input type="hidden" name="txtIdFuncionario" value="${funcionario.id}" />
               <button type="submit" name="btnIncluir" value="Confirmar">Editar</button>
             </c:when>
 
-            <c:when test="${operacao.equalsIgnoreCase('excluir')}">
+            <c:when test="${operacao.equalsIgnoreCase('excluir') && removeAdmin == true}">
               <input type="hidden" name="txtIdFuncionario" value="${funcionario.id}" />
               <button type="submit" name="btnIncluir" value="Confirmar">Excluir</button>
+            </c:when>
+
+            <c:when test="${operacao.equalsIgnoreCase('excluir') && removeAdmin == false}">
+              <p class="text-alert bg-dark wrap ph-2">Não é possível remover o único Admin do estabelecimento!</p>
             </c:when>
 
             <c:otherwise>
               <button type="submit" name="btnIncluir" value="Confirmar">Cadastrar</button>
             </c:otherwise>
           </c:choose>
-          <a href="/PesquisarFuncionarioController"><i class="fad fa-chevron-left"></i> Voltar</a>
+          <a href="${uriAnterior}">
+            <i class="fad fa-chevron-left"></i> 
+            Voltar
+          </a>
         </div>
       </form>
     </div>

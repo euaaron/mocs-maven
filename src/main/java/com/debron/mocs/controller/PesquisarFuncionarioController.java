@@ -37,16 +37,14 @@ public class PesquisarFuncionarioController extends HttpServlet {
 
     String consultorId = req.getParameter("consultor");
     
-    String estabelecimento = req.getParameter("fonte");
+    String estabelecimentoId = req.getParameter("fonte");
     
-    final List<Funcionario> funcionarios;
-    
-    funcionarios = new ArrayList<>();
+    final List<Funcionario> funcionarios = new ArrayList<>();
     List<Funcionario> temp = FuncionarioDAO.getInstancia().findAll();
     
-    Predicate<Funcionario> porLugar = funcionario -> funcionario.getEstabelecimento().getId().equals(estabelecimento);
+    Predicate<Funcionario> porLugar = funcionario -> funcionario.getEstabelecimento().getId().equals(estabelecimentoId);
     
-    if(estabelecimento != null) {
+    if(estabelecimentoId != null) {
       temp.stream().filter(porLugar).forEach(funcionario -> funcionarios.add(funcionario));
     } else {
       temp.forEach(funcionario -> funcionarios.add(funcionario));
@@ -56,7 +54,7 @@ public class PesquisarFuncionarioController extends HttpServlet {
     
     req.setAttribute(
             "estabelecimento", 
-            EstabelecimentoDAO.getInstancia().findById(estabelecimento)
+            EstabelecimentoDAO.getInstancia().findById(estabelecimentoId)
     );
     
     req.setAttribute("consultor", FuncionarioDAO.getInstancia().findById(consultorId));

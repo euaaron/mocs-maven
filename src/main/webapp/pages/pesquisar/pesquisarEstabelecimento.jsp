@@ -90,7 +90,7 @@
 
                     <c:forEach items="${funcionarios}" var="funcionario">
                       <c:if
-                        test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id) && funcionario.nivelPermissao == 0}">
+                        test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
                         <form action="/PesquisarFuncionarioController" >
                           <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
                           <input type="hidden" name="consultor" value="${funcionario.id}" />
@@ -154,47 +154,34 @@
                     <span>
                       <c:out value="${estabelecimento.telefone}" />
                     </span>
+                    <c:forEach items="${funcionarios}" var="funcionario">
+                      <c:if
+                        test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
+                        <div class="row">
+                          <form action="ManterEstabelecimentoController" method="post">
+                            <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
+                            <input type="hidden" name="acao" value="prepararOperacao" />
+                            <input type="hidden" name="operacao" value="Editar" />
+                            <input type="hidden" name="id" value="${estabelecimento.id}" />
+                            <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
+                              <i class="fas fa-edit" title="Editar estabelecimento"></i>
+                            </a>
+                          </form>
+                          <form action="ManterEstabelecimentoController" method="post">
+                            <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
+                            <input type="hidden" name="acao" value="prepararOperacao" />
+                            <input type="hidden" name="operacao" value="Excluir" />
+                            <input type="hidden" name="id" value="${estabelecimento.id}" />
+                            <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
+                              <i class="fas fa-trash" title="Excluir estabelecimento"></i>
+                            </a>
+                          </form>
+                        </div>
+                      </c:if>
+                    </c:forEach>
                   </div>
                 </c:forEach>
               </div>
-
-              <div class="col">
-                <div class="row">
-                  <h4>&nbsp;</h4>
-                </div>
-                <c:forEach items="${estabelecimentos}" var="estabelecimento">
-                  <c:forEach items="${funcionarios}" var="funcionario">
-                    <c:choose>
-                      <c:when
-                        test="${funcionario.estabelecimento.id.equals(estabelecimento.id) && funcionario.usuario.id.equals(userSession.id)}">
-                        <div class="row">
-                          <form
-                            action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Editar&id=<c:out value="
-                                   ${estabelecimento.id}" />" method="post">
-                            <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
-                            <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
-                              <i class="fas fa-edit"></i>
-                            </a>
-                          </form>
-                          <form
-                            action="ManterEstabelecimentoController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="
-                                   ${estabelecimento.id}" />" method="post">
-                            <input type="hidden" name="uriAtual" value="/PesquisarEstabelecimentoController" />
-                            <a href="#" class="p-2" onclick="$(this).closest('form').submit()">
-                              <i class="fas fa-trash"></i>
-                            </a>
-                          </form>
-                        </div>
-                      </c:when>
-                      <c:otherwise>
-                        <div class="row">
-                        </div>
-                      </c:otherwise>
-                    </c:choose>
-                  </c:forEach>                   
-                </c:forEach>
-              </div>
-
             </div>
             <div class="flex-1">
               <i class="fad fa-store medium"></i>
