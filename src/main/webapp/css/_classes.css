@@ -173,6 +173,46 @@
   padding: 1rem;
 }
 
+.pv-1 {
+  padding: .2rem 0;
+}
+
+.pv-2 {
+  padding: .4rem 0;
+}
+
+.pv-3 {
+  padding: .6rem 0;
+}
+
+.pv-4 {
+  padding: .8rem 0;
+}
+
+.pv-5 {
+  padding: 1rem 0;
+}
+
+.ph-1 {
+  padding: 0 .2rem;
+}
+
+.ph-2 {
+  padding: 0 .4rem;
+}
+
+.ph-3 {
+  padding: 0 .6rem;
+}
+
+.ph-4 {
+  padding: 0 .8rem;
+}
+
+.ph-5 {
+  padding: 0 1rem;
+}
+
 .m-1 {
   margin: .2rem;
 }
@@ -273,6 +313,10 @@
   margin: 0 1rem;
 }
 
+.m-0 {
+  margin: 0;
+}
+
 .text-success {
   color: var(--highlight);
 }
@@ -301,6 +345,40 @@
   color: var(--alert);
 }
 
+button.text-alert {
+  color: var(--dark);
+}
+
+a.text-alert {
+  color: var(--light);
+}
+
+button.text-alert:focus,
+button.text-alert:hover,
+a.text-alert:focus,
+a.text-alert:hover {
+  color: var(--alert);
+}
+
 .text-logo {
   color: var(--logo-color);
+}
+
+.card {
+  background-color: var(--light);
+  padding: 1rem;
+  flex-wrap: wrap;
+  border-radius: 0;
+  max-width: 60vw;
+  min-width: 50vw;
+  border-radius: 10rem 0 0 10rem;
+}
+
+.image {
+  border-radius: 10rem 0 0 10rem;  
+  background-size: cover;
+  background-position: 25% 50%;
+  background-repeat: no-repeat;
+  min-height: 8rem;
+  min-width: 8rem;
 }

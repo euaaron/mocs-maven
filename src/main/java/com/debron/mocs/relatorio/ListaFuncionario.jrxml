@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaFuncionario" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6effe9f1-ae9c-43c0-8b42-65a8d5074c57">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[aGVyb2t1X2UxZmI3MjY4YTVjZTZhZS5mdW5jaW9uYXJpbyBBUyAsNjIsMzYsNTc2N2UyNjctN2Q1
-OC00YTU2LTliY2YtODZjMjZmNTBhYjlkO2hlcm9rdV9lMWZiNzI2OGE1Y2U2YWUudXN1YXJpbyBB
-UyAsMzEzLDQxLDI2MjIwNGQ2LTE3NGYtNDk2Mi04YTQ5LTg1YzA2YTZmYjdlNzs=]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mocs_mvn"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="588"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="398"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT heroku_e1fb7268a5ce6ae.usuario.`NOME`,
 	heroku_e1fb7268a5ce6ae.usuario.`TELEFONE`,
-	heroku_e1fb7268a5ce6ae.funcionario.`STATUSCONTA`
+	heroku_e1fb7268a5ce6ae.funcionario.`STATUSCONTA`,
+	heroku_e1fb7268a5ce6ae.funcionario.`NIVELPERMISSAO`
 FROM heroku_e1fb7268a5ce6ae.funcionario
 	INNER JOIN heroku_e1fb7268a5ce6ae.usuario ON 
 	 heroku_e1fb7268a5ce6ae.funcionario.`USUARIO_ID` = heroku_e1fb7268a5ce6ae.usuario.`ID`]]>
@@ -27,6 +26,10 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 		<property name="com.jaspersoft.studio.field.label" value="STATUSCONTA"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
 	</field>
+	<field name="NIVELPERMISSAO" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+		<property name="com.jaspersoft.studio.field.label" value="NIVELPERMISSAO"/>
+	</field>
 	<background>
 		<band/>
 	</background>
@@ -39,7 +42,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Lista de Funcionario]]></text>
+					<text><![CDATA[Lista de Funcionário]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
 					<reportElement x="404" y="72" width="190" height="19" forecolor="#FFFFFF" uuid="c757a686-741b-41d3-8f15-937a509ce076">
@@ -60,9 +63,9 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 		<band height="13"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
+		<band height="25">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="255" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="a7c45df1-5467-457f-b50a-910386bbe648">
+				<reportElement mode="Opaque" x="0" y="0" width="210" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="a7c45df1-5467-457f-b50a-910386bbe648">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4952563-8e00-4b0b-a125-887c3698f624"/>
 				</reportElement>
 				<box leftPadding="15"/>
@@ -72,7 +75,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="255" y="0" width="185" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="24f4ab81-3aa2-4cab-a320-f79c1091425e">
+				<reportElement mode="Opaque" x="210" y="0" width="140" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="24f4ab81-3aa2-4cab-a320-f79c1091425e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d89bc2fe-cb72-4e0b-ba19-65b4e92394f4"/>
 				</reportElement>
 				<box leftPadding="10"/>
@@ -82,7 +85,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<text><![CDATA[Telefone]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="440" y="0" width="115" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="fdca09eb-d534-444c-b68f-165dd375872f">
+				<reportElement mode="Opaque" x="460" y="0" width="95" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="fdca09eb-d534-444c-b68f-165dd375872f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a7fd4e-c612-44bb-a96c-e64f1923cf9b"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -90,12 +93,21 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="115" height="20" forecolor="#000000" backcolor="#E6E6E6" uuid="778f4105-4aa3-49d8-aae6-91c1a3b4cc80">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a7fd4e-c612-44bb-a96c-e64f1923cf9b"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Posição]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="25">
 			<textField textAdjust="StretchHeight">
-				<reportElement x="0" y="0" width="255" height="20" uuid="019f66db-5cc7-400c-b7cb-451800726a12">
+				<reportElement x="0" y="0" width="210" height="20" uuid="019f66db-5cc7-400c-b7cb-451800726a12">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4952563-8e00-4b0b-a125-887c3698f624"/>
 				</reportElement>
 				<box leftPadding="15"/>
@@ -105,7 +117,7 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="255" y="0" width="185" height="20" uuid="88628717-f2dc-4cff-8876-4b9f8136b395">
+				<reportElement x="210" y="0" width="140" height="20" uuid="88628717-f2dc-4cff-8876-4b9f8136b395">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d89bc2fe-cb72-4e0b-ba19-65b4e92394f4"/>
 				</reportElement>
 				<box leftPadding="10"/>
@@ -115,13 +127,22 @@ FROM heroku_e1fb7268a5ce6ae.funcionario
 				<textFieldExpression><![CDATA[$F{TELEFONE}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="440" y="0" width="115" height="20" uuid="ddc22d27-523b-4638-8044-efd646c4fd7a">
+				<reportElement x="460" y="0" width="95" height="20" uuid="ddc22d27-523b-4638-8044-efd646c4fd7a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a7fd4e-c612-44bb-a96c-e64f1923cf9b"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{STATUSCONTA} != false ? "Ativo" : "Desativado"]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="350" y="0" width="115" height="20" uuid="2f13e2a5-3bc2-4820-888f-162cd76c01f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b2a7fd4e-c612-44bb-a96c-e64f1923cf9b"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NIVELPERMISSAO} == 0 ? "Administrador" : $F{NIVELPERMISSAO} == 1 ? "Gerente Geral" : $F{NIVELPERMISSAO} == 2 ? "Supervisor" : $F{NIVELPERMISSAO} == 3 ? "Garçom" : "Cheff"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

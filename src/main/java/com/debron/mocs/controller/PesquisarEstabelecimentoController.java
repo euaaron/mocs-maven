@@ -33,12 +33,16 @@ public class PesquisarEstabelecimentoController extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest req, HttpServletResponse res)
           throws ServletException, IOException {
+    
     List<Funcionario> funcionarios = FuncionarioDAO.getInstancia().findAll();
     
     req.setAttribute("estabelecimentos", EstabelecimentoDAO.getInstancia().findAll());
+    
     req.setAttribute("funcionarios", funcionarios);
+    
     RequestDispatcher view = req.getRequestDispatcher(
-            "/pages/pesquisar/pesquisarEstabelecimento.jsp");
+            "/pages/pesquisar/pesquisarEstabelecimento.jsp"
+    );
     view.forward(req, res);
   }
 

@@ -46,9 +46,6 @@ Abaixo a lista das ferramentas utilizadas neste projeto:
 
 ## Níveis de Permissão
 
-### Nível 5 - Profissioal de RH
-- pode adicionar, alterar ou remover funcionários;
-
 ### Nível 4 - Cheff
 - pode listar, adicionar, alterar e remover pratos;
 - pode listar comandas e pedidos;
@@ -65,7 +62,7 @@ Abaixo a lista das ferramentas utilizadas neste projeto:
 
 ### Nível 1 - Gerente Geral 
 - todas as permissões anteriores;
-- pode adicionar, alterar ou remover funcionários;
+- pode adicionar, alterar ou remover funcionários (exceto com nível 0);
 
 ### Nível 0 - Administrador 
 - todas as permissões anteriores;

@@ -54,6 +54,10 @@ public class Funcionario {
   public void setStatusConta(Boolean statusConta) {
     this.statusConta = statusConta;
   }
+  
+  public void setStatusConta() {
+    this.statusConta = true;
+  }
 
   public Estabelecimento getEstabelecimento() {
     return estabelecimento;
@@ -85,7 +89,6 @@ public class Funcionario {
 
   public void setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
-  }
-  
+  } 
   
 }

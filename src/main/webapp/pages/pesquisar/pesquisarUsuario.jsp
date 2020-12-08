@@ -48,9 +48,12 @@
         <div class="col">
           <h1>Pesquisar Usuarios</h1>
           <div class="row">
-            <a href="ListaUsuarioController?acao=emitir" title="Salvar em PDF"><i class="fad fa-print"></i></a>
-            <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" title="Adicionar novo usuário"><i
-                class="fad fa-plus"></i></a>
+            <a href="ListaUsuarioController?acao=emitir" title="Salvar em PDF">
+                <i class="fad fa-print"></i>
+            </a>
+            <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Incluir" title="Adicionar novo usuário">
+              <i class="fad fa-plus"></i>
+            </a>
           </div>
         </div>
       </header>
@@ -93,9 +96,15 @@
                     <span>
                       <c:out value="${usuario.telefone}" /></span>
                       <c:if test="${usuario.id == userSession.id}">
-                      <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${usuario.id}" />" ><i class="fas fa-edit"></i></a>
-                      <a href="ManterUsuarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${usuario.id}" />" ><i class="fas fa-trash"></i></a>
-                      </c:if>
+                      <form action="ManterUsuarioController?acao=prepararOperacao&operacao=Editar&id=<c:out value="${usuario.id}" />" method="post">
+                        <input type="hidden" name="uriAtual" value="/PesquisarUsuarioController"/>
+                        <a class="p-2" href="#" onclick="$(this).closest('form').submit()" /><i class="fas fa-edit"></i></a>
+                      </form>
+                      <form action="ManterUsuarioController?acao=prepararOperacao&operacao=Excluir&id=<c:out value="${usuario.id}" />" method="post">
+                        <input type="hidden" name="uriAtual" value="/PesquisarUsuarioController"/>
+                        <a class="p-2 text-alert" href="#" onclick="$(this).closest('form').submit()" /><i class="fas fa-trash"></i></a>
+                      </form>
+                    </c:if>
                   </div>
                 </c:forEach>
               </div>

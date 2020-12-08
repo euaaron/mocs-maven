@@ -49,6 +49,9 @@ public class ManterEstabelecimentoController extends HttpServlet {
           SQLException,
           ClassNotFoundException {
     String acao = req.getParameter("acao");
+    String uriAnterior = req.getParameter("uriAtual");
+    req.setAttribute("uriAnterior", uriAnterior);
+
     switch (acao) {
       case "prepararOperacao":
         prepararOperacao(req, res);
@@ -73,8 +76,7 @@ public class ManterEstabelecimentoController extends HttpServlet {
           throws ServletException, IOException {
     try {
       String operacao = req.getParameter("operacao");
-      String uriAnterior = req.getParameter("page");
-      req.setAttribute("uriAnterior", uriAnterior);
+
       req.setAttribute("operacao", operacao);
       if (!operacao.equalsIgnoreCase("Incluir")) {
         String idEstabelecimento = req.getParameter("id");
@@ -118,9 +120,9 @@ public class ManterEstabelecimentoController extends HttpServlet {
       } else if (operacao.equalsIgnoreCase("incluir")) {
 
         String hoje = dateFormat.format(new Date());
-
+        String gruoupId = RandomID.generate();
         Endereco endereco = new Endereco();
-        endereco.setId(RandomID.generate());
+        endereco.setId(gruoupId);
         endereco.setLogradouro(rua);
         endereco.setBairro(bairro);
         endereco.setCep(cep);
@@ -132,10 +134,10 @@ public class ManterEstabelecimentoController extends HttpServlet {
         endereco.setUpdatedAt(hoje);
 
         EnderecoDAO.getInstancia().save(endereco);
-
+        
         Estabelecimento estabelecimento = new Estabelecimento();
+        estabelecimento.setId(gruoupId);
         estabelecimento.setEndereco(endereco);
-        estabelecimento.setId(RandomID.generate());
         estabelecimento.setNomeFantasia(nomeFantasia);
         estabelecimento.setCnpj(cnpj);
         estabelecimento.setInscEstadual(inscEstadual);
@@ -146,13 +148,14 @@ public class ManterEstabelecimentoController extends HttpServlet {
         EstabelecimentoDAO.getInstancia().save(estabelecimento);
 
         Funcionario administrador = new Funcionario();
+        administrador.setId(gruoupId);
         administrador.setCreatedAt(hoje);
         administrador.setUpdatedAt(hoje);
         administrador.setNivelPermissao(0);
-        administrador.setStatusConta(Boolean.TRUE);
+        administrador.setStatusConta(true);
         administrador.setEstabelecimento(estabelecimento);
         administrador.setUsuario(UsuarioDAO.getInstancia().findById(proprietario));
-        
+
         FuncionarioDAO.getInstancia().save(administrador);
 
       } else if (operacao.equalsIgnoreCase("editar")) {
